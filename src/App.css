@@ -1,0 +1,99 @@
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.dropdown,
+.dropdown * {
+  z-index: 10;
+}
+
+.dropdown-boxshadow {
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.option-list .option-wrapper:last-child .option {
+  border-bottom: none;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  min-width: 150px;
+  background-color: white;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+ 
+  position: absolute;
+  z-index: 1;
+  bottom: 160%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(18, 20, 30, 0.6);
+  font-size: 0.8125rem;
+  line-height: 1;
+  box-shadow: 0px 0px 6px 0px rgba(204, 204, 204, 0.25), 0px 0px 30px -2px rgba(204, 204, 204, 0.40);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: white;
+  border-color: white transparent transparent transparent;
+}
+
+.blockie-wrapper > canvas {
+  border-radius: 6px;
+}
+
+.modal-backdrop {
+  backdrop-filter: blur(7.849999904632568px);
+}
