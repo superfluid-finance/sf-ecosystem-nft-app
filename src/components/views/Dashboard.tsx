@@ -295,7 +295,7 @@ const DashboardContent = () => {
 
   return (
     <MintStatusContext.Provider value={mintContextProviderProps}>
-      <div className="w-full md:w-1/2 p-8 lg:p-12 bg-white rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
+      <div className="w-full md:w-1/2 p-8 bigscreen:p-12 bg-white rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
         { !mintInfo ? 
           <ToMintContent /> 
         : 
@@ -311,7 +311,7 @@ const DashboardContent = () => {
 /** Component that renders the dashboard page */
 export const Dashboard = () => {
   return (
-    <div className="text-black-2 w-[90%] lg:max-h-[80vh] max-w-[82.125rem] bg-white flex flex-col md:flex-row rounded-2xl">
+    <div className="text-black-2 w-[90%] bigscreen:max-h-[80vh] max-w-[82.125rem] bg-white flex flex-col md:flex-row rounded-2xl">
       <NFTPreview />
       <DashboardContent />
     </div>

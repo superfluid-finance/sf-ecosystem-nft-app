@@ -34,7 +34,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
   return (
     <ChainMintInfosContext.Provider value={{ chainMintInfos: allChainMintedInfo, setChainMintInfos: setAllChainMintedInfo }}>
     <SelectedChainContext.Provider value={{ selected, setSelected }}>
-      <div className="relative w-screen lg:overflow-hidden bg-[#EAEFF4] min-h-screen">
+      <div className="relative w-screen bigscreen:overflow-hidden bg-[#EAEFF4] min-h-screen">
         <Background />
         <header className="fixed top-0 left-0 w-full pr-8 py-2 z-[11] flex justify-between items-center">
         <img src={SuperFluidLogo} className="w-[16.375rem]"/>
@@ -45,7 +45,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
           </div>
         }
         </header>
-        <main className="relative py-16 md:py-[8rem] w-full h-full flex justify-center items-center">
+        <main className="relative py-16 md:py-[6rem] w-full h-full flex justify-center items-center">
         {children}
         </main>
       </div>

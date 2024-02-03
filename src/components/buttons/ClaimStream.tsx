@@ -4,7 +4,7 @@ import { useViemWalletClient } from '../../lib/hooks/useViemWalletClient';
 import { createPublicClient, http } from 'viem';
 import { gdaForwarderV1Abi } from '../../lib/abi/gdaForwarderV1';
 import { StreamRunningModal } from '../modals/StreamRunningModal';
-import { MintStatusContext, UserMintInfoContext } from '../views/Dashboard';
+import { UserMintInfoContext } from '../views/Dashboard';
 import { INSUFFICIENT_FOR_GAS, REJECTED_TRANSACTION_GENERAL } from '../../lib/dictionary';
 import { LoadingSpinner } from '../common/Loading';
 
