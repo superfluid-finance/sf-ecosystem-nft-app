@@ -1,17 +1,13 @@
-import Decimal from 'decimal.js'
-import { BigNumberish, ethers } from 'ethers'
-import { FC } from 'react'
+import Decimal from "decimal.js";
+import { BigNumberish, ethers } from "ethers";
+import { FC } from "react";
 
 const EtherFormatted: FC<{ wei: BigNumberish }> = ({ wei }) => {
-  const etherDecimalPlaces = 11
+  const etherDecimalPlaces = 11;
 
-  const ether = ethers.utils.formatEther(wei)
+  const ether = ethers.utils.formatEther(wei);
 
-  return (
-    <>
-      {new Decimal(ether).toDP(etherDecimalPlaces).toFixed()}
-    </>
-  )
-}
+  return <>{new Decimal(ether).toDP(etherDecimalPlaces).toFixed()}</>;
+};
 
-export default EtherFormatted
+export default EtherFormatted;

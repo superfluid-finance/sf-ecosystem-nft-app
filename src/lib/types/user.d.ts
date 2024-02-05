@@ -1,8 +1,8 @@
-import { NFTChain } from "./chain"
+import { NFTChain } from "./chain";
 
 type UserMintInfo = {
-  mintedChain: NFTChain
-  timestamp: number,
-  tokenId: number,
-  claimedStream: boolean,
-}
+  mintedChain: NFTChain;
+  timestamp: number;
+  tokenId: number;
+  claimedStream: boolean;
+};

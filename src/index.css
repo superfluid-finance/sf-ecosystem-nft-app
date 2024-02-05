@@ -5,26 +5,26 @@
 @font-face {
   font-family: GT-Walsheim;
   src: url("/src/assets/fonts/GTWalsheimPro-Regular.ttf") format("truetype");
-  font-weight: 400
+  font-weight: 400;
 }
 
 @font-face {
   font-family: GT-Walsheim;
   src: url("/src/assets/fonts/GTWalsheimPro-Bold.ttf") format("truetype");
-  font-weight: 700
+  font-weight: 700;
 }
 
 @font-face {
   font-family: GT-Walsheim;
   src: url("/src/assets/fonts/GTWalsheimPro-Medium.ttf") format("truetype");
-  font-weight: 500
+  font-weight: 500;
 }
 
 :root {
-  font-family: GT-Walsheim, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: GT-Walsheim, Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
