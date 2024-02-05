@@ -125,8 +125,8 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
         wallet &&
         window.localStorage.getItem(`${user?.wallet?.address}_sf`)
       ) {
-        // @ts-ignore
         let mintStatus = JSON.parse(
+          // @ts-ignore
           window.localStorage.getItem(`${user?.wallet?.address}_sf`),
         );
 

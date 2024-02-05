@@ -3,14 +3,15 @@ import { StreamInfoType } from "../types/stream";
 import { createPublicClient, erc20Abi, getContract, http } from "viem";
 import { usePrivy } from "@privy-io/react-auth";
 import { superfluidPoolAbi } from "../abi/superfluidPool";
+import { UserMintInfo } from "../types/user";
 
 export const useGetStreamInfo = () => {
   const [streamInfo, setStreamInfo] = useState<StreamInfoType>();
   const { user } = usePrivy();
 
   const getStreamInfo = useCallback(async () => {
-    // @ts-ignore
     let mintedInfo: UserMintInfo = JSON.parse(
+      // @ts-ignore
       localStorage.getItem(user?.wallet?.address + "_sf"),
     );
 

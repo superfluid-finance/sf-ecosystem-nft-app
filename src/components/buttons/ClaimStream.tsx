@@ -51,10 +51,10 @@ export const ClaimStreamButton = () => {
 
       // test this
       if (tx.status == "success") {
-        // @ts-ignore
         let pastMintInfo = mintInfo
           ? mintInfo
           : JSON.parse(
+              // @ts-ignore
               window.localStorage.getItem(`${user?.wallet?.address}_sf`),
             );
 

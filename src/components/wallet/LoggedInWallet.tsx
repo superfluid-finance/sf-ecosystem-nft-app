@@ -70,9 +70,8 @@ export const LoggedInWallet = () => {
         <span className="text-black font-medium">
           {truncateAddress(user?.wallet?.address as string)}
         </span>
-        {/** @ts-ignore */}
         <span className="text-darkgray -mt-1 text-[12px]">
-          {Number(userBalance).toFixed(4)}{" "}
+          {Number(userBalance).toFixed(4)} {/** @ts-ignore */}
           {viemWalletClient?.chain?.nativeCurrency?.symbol}
         </span>
       </div>
