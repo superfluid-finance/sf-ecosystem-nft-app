@@ -1,16 +1,18 @@
-import { usePrivy } from '@privy-io/react-auth';
+import { usePrivy, useWallets } from '@privy-io/react-auth';
 import { useCallback, useContext, useState } from 'react';
 import { useViemWalletClient } from '../../lib/hooks/useViemWalletClient';
-import { createPublicClient, http } from 'viem';
+import { PublicClient, createPublicClient, createWalletClient, custom, http } from 'viem';
 import { gdaForwarderV1Abi } from '../../lib/abi/gdaForwarderV1';
 import { StreamRunningModal } from '../modals/StreamRunningModal';
 import { UserMintInfoContext } from '../views/Dashboard';
 import { INSUFFICIENT_FOR_GAS, REJECTED_TRANSACTION_GENERAL } from '../../lib/dictionary';
 import { LoadingSpinner } from '../common/Loading';
+import { viemChainLookupById } from '../../lib/utils';
 
 export const ClaimStreamButton = () => {
 
   const { user } = usePrivy();
+  const { wallets } = useWallets();
   const viemWalletClient: any = useViemWalletClient()
   const mintInfo = useContext(UserMintInfoContext)
 
@@ -24,10 +26,26 @@ export const ClaimStreamButton = () => {
     setLoading(true)
     setErrorMessage('')
 
-    let publicClient = createPublicClient({
-      chain: mintInfo?.mintedChain.viemChain,
-      transport: http()
-    })
+    let _chain = mintInfo?.mintedChain?.viemChain ?? null
+    let publicClient: PublicClient;;
+
+    if (!_chain && user) {
+      const wallet = wallets.find((wallet: any) => (wallet.address == user?.wallet?.address)); 
+      let currentlyConnectedId = wallet?.chainId?.split(':')[1]
+      // Get an EIP1193 provider from the user's wallet
+      const ethereumProvider = await wallet?.getEthereumProvider();
+
+      // @ts-ignore
+      publicClient = createWalletClient({
+        chain: viemChainLookupById(Number(currentlyConnectedId))!,
+        transport: custom(ethereumProvider!)
+      });
+    } else {
+      publicClient = createPublicClient({
+        chain: mintInfo?.mintedChain.viemChain,
+        transport: http()
+      })
+    }
 
     try {
       const hash = await viemWalletClient!.writeContract({

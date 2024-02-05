@@ -1,5 +1,5 @@
-import { Chain, arbitrum, base, bsc, celo, gnosis, mainnet, optimism, polygon, scroll } from "viem/chains";
-import { mumbai } from "./default";
+import { Chain, arbitrum, avalanche, base, bsc, celo, gnosis, mainnet, optimism, polygon, scroll } from "viem/chains";
+import { mumbai, sepolia } from "./default";
 import Decimal from 'decimal.js'
 
 
@@ -25,7 +25,7 @@ export const viemChainLookupById = (id: number) => {
       chain = arbitrum
       break;
     case 43114:
-      chain = arbitrum
+      chain = avalanche
       break;
     case 10:
       chain = optimism
@@ -44,6 +44,9 @@ export const viemChainLookupById = (id: number) => {
       break;
     case 80001:
       chain = mumbai
+      break;
+    case 11155111:
+      chain = sepolia
       break;
     default:
       chain = mainnet

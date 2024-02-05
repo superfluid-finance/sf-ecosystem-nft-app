@@ -21,6 +21,36 @@ export const mumbai = defineChain({
   }
 })
 
+export const sepolia = /*#__PURE__*/ defineChain({
+  id: 11_155_111,
+  name: 'Sepolia',
+  nativeCurrency: { name: 'Sepolia Ether', symbol: 'SEP', decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: [`https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_SEPOLIA_KEY}`, 'https://rpc.sepolia.org'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Etherscan',
+      url: 'https://sepolia.etherscan.io',
+      apiUrl: 'https://api-sepolia.etherscan.io/api',
+    },
+  },
+  contracts: {
+    multicall3: {
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 751532,
+    },
+    ensRegistry: { address: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e' },
+    ensUniversalResolver: {
+      address: '0xBaBC7678D7A63104f1658c11D6AE9A21cdA09725',
+      blockCreated: 5_043_334,
+    },
+  },
+  testnet: true,
+})
+
 /** Default values */
 export const NETWORK_LIST: NFTChain[] = [
   {
@@ -38,10 +68,24 @@ export const NETWORK_LIST: NFTChain[] = [
     price: formatEther(10000000000000000 as unknown as bigint),
     viemChain: mumbai,
     gdaInfo: {
-      nftContractAddress: '0x5644ae06901dd1d9cb5082685702b84b0b2d4da6',
+      nftContractAddress: '0x15C8796F2ff8165C16257001caEE928c8DecD851',
       gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
-      poolAddress: `0x531b5fA3E649885793088A1b6eEa3803edcb9caf`,
+      poolAddress: `0x973fDDEC2022d9a1F0781A3C9204de09fc450495`,
       nativeTokenAddress: `0x96B82B65ACF7072eFEb00502F45757F254c2a0D4`
+    }
+  },
+  {
+    name: 'Ethereum Sepolia Testnet',
+    logo: './network-icons/ethereum.svg',
+    ticker: 'SEP',
+    // @ts-ignore
+    price: formatEther(10000000000000000 as unknown as bigint),
+    viemChain: sepolia,
+    gdaInfo: {
+      nftContractAddress: '0x08748d13392f18f5040de7722a4e29859035c338',
+      gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
+      poolAddress: `0xFE1a6BC4c07Fc183c2e7473dF86471D559a3a4FB`,
+      nativeTokenAddress: `0x30a6933Ca9230361972E413a15dC8114c952414e`
     }
   },
   {

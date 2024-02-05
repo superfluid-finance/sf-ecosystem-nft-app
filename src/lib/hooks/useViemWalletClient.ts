@@ -15,7 +15,6 @@ export const useViemWalletClient = (selectedChain?: NFTChain) => {
   useEffect(() => {
 
     const getViemWalletClient = async (wallet: any) => {
-
         let currentlyConnectedId = wallet.chainId.split(':')[1]
         // Get an EIP1193 provider from the user's wallet
         const ethereumProvider = await wallet?.getEthereumProvider();
@@ -33,7 +32,10 @@ export const useViemWalletClient = (selectedChain?: NFTChain) => {
 
     if(wallets && user?.wallet?.address) {
       const wallet = wallets.find((wallet: any) => (wallet.address == user.wallet?.address)); 
-      getViemWalletClient(wallet)
+
+      if (wallet?.chainId) {
+        getViemWalletClient(wallet)
+      }
     }
   }, [wallets, selectedChain])
 

@@ -40,7 +40,6 @@ export const Mint = () => {
         let tx = await publicClient.waitForTransactionReceipt({ hash });
         tx = await publicClient.getTransactionReceipt({ hash })
         
-        // test this
         if (tx.status == 'success') {
           setOpenMintSuccessModal(true)
           setLoading(false)

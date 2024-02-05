@@ -4,7 +4,7 @@ import type {PrivyClientConfig} from '@privy-io/react-auth';
 import { bsc, polygon, gnosis, optimism, arbitrum, avalanche, celo, base, scroll } from 'viem/chains'
 import { Layout } from './components/layout';
 import { Dashboard } from './components/views/Dashboard';
-import { mumbai } from './lib/default';
+import { mumbai, sepolia } from './lib/default';
 
 const privyConfig: PrivyClientConfig = {
   loginMethods: ['wallet'],
@@ -14,7 +14,7 @@ const privyConfig: PrivyClientConfig = {
     walletList: ['detected_wallets', 'metamask', 'coinbase_wallet', 'rainbow', 'wallet_connect'],
   },
   defaultChain: mumbai,
-  supportedChains: [ mumbai, bsc, polygon, gnosis, optimism, arbitrum, avalanche, celo, base, scroll ]
+  supportedChains: [ mumbai, sepolia, bsc, polygon, gnosis, optimism, arbitrum, avalanche, celo, base, scroll ]
 };
 
 const handleLogin = (user:any) => {
