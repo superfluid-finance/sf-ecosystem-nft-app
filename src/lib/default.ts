@@ -10,8 +10,9 @@ import {
   scroll,
 } from "viem/chains";
 import { NFTChain } from "./types/chain";
-import { defineChain, formatEther, parseEther } from "viem";
+import { defineChain, formatEther } from "viem";
 
+/** Custom chains, using our own Alchemy RPC  */
 export const mumbai = defineChain({
   id: 80_001,
   name: "Polygon Mumbai Testnet",
