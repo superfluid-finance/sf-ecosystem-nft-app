@@ -1,20 +1,21 @@
-import { usePrivy, useWallets } from '@privy-io/react-auth';
+import { usePrivy } from '@privy-io/react-auth';
 import { useCallback, useContext, useState } from 'react';
 import { useViemWalletClient } from '../../lib/hooks/useViemWalletClient';
-import { PublicClient, createPublicClient, createWalletClient, custom, http } from 'viem';
+import { createPublicClient, http } from 'viem';
 import { gdaForwarderV1Abi } from '../../lib/abi/gdaForwarderV1';
 import { StreamRunningModal } from '../modals/StreamRunningModal';
 import { UserMintInfoContext } from '../views/Dashboard';
 import { INSUFFICIENT_FOR_GAS, REJECTED_TRANSACTION_GENERAL } from '../../lib/dictionary';
 import { LoadingSpinner } from '../common/Loading';
-import { viemChainLookupById } from '../../lib/utils';
+import { SelectedChainContext } from '../layout';
 
 export const ClaimStreamButton = () => {
 
   const { user } = usePrivy();
-  const { wallets } = useWallets();
-  const viemWalletClient: any = useViemWalletClient()
+  const viemWalletClient: any = useViemWalletClient({ triggerUpdate: true})
   const mintInfo = useContext(UserMintInfoContext)
+  const { selected } = useContext(SelectedChainContext)
+
 
   const [loading, setLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -26,42 +27,29 @@ export const ClaimStreamButton = () => {
     setLoading(true)
     setErrorMessage('')
 
-    let _chain = mintInfo?.mintedChain?.viemChain ?? null
-    let publicClient: PublicClient;;
-
-    if (!_chain && user) {
-      const wallet = wallets.find((wallet: any) => (wallet.address == user?.wallet?.address)); 
-      let currentlyConnectedId = wallet?.chainId?.split(':')[1]
-      // Get an EIP1193 provider from the user's wallet
-      const ethereumProvider = await wallet?.getEthereumProvider();
-
-      // @ts-ignore
-      publicClient = createWalletClient({
-        chain: viemChainLookupById(Number(currentlyConnectedId))!,
-        transport: custom(ethereumProvider!)
-      });
-    } else {
-      publicClient = createPublicClient({
-        chain: mintInfo?.mintedChain.viemChain,
-        transport: http()
-      })
-    }
-
     try {
       const hash = await viemWalletClient!.writeContract({
-        address: mintInfo?.mintedChain.gdaInfo?.gdaForwarderV1Address,
+        address: mintInfo?.mintedChain?.gdaInfo?.gdaForwarderV1Address ?? selected.gdaInfo?.gdaForwarderV1Address,
         abi: gdaForwarderV1Abi,
         functionName: 'connectPool',
-        args: [mintInfo?.mintedChain.gdaInfo?.poolAddress, ""]
+        args: [mintInfo?.mintedChain?.gdaInfo?.poolAddress ?? selected.gdaInfo?.poolAddress, ""]
       })
 
-    
+      const publicClient = createPublicClient({
+        chain: mintInfo?.mintedChain?.viemChain ?? selected?.viemChain,
+        transport: http()
+      })
+  
       let tx = await publicClient.waitForTransactionReceipt({ hash });
       tx = await publicClient.getTransactionReceipt({ hash })
       
       // test this
       if (tx.status == 'success') {
-        let updatedMintInfo = {...mintInfo, claimedStream: true}
+
+        // @ts-ignore
+        let pastMintInfo = mintInfo ? mintInfo : JSON.parse(window.localStorage.getItem(`${user?.wallet?.address}_sf`))
+
+        let updatedMintInfo = {...pastMintInfo, claimedStream: true}
         // update mint info
         localStorage.setItem(`${user?.wallet?.address}_sf`, JSON.stringify(updatedMintInfo))
 
@@ -77,6 +65,7 @@ export const ClaimStreamButton = () => {
         setErrorMessage(REJECTED_TRANSACTION_GENERAL)
       }
 
+      console.log(error)
       setLoading(false)
     }
     

@@ -51,6 +51,33 @@ export const sepolia = /*#__PURE__*/ defineChain({
   testnet: true,
 })
 
+export const avalancheFuji = /*#__PURE__*/ defineChain({
+  id: 43_113,
+  name: 'Avalanche Fuji',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Avalanche Fuji',
+    symbol: 'AVAX',
+  },
+  rpcUrls: {
+    default: { http: ['https://avalanche-fuji-c-chain.publicnode.com', 'https://api.avax-test.network/ext/bc/C/rpc'] },
+  },
+  blockExplorers: {
+    default: {
+      name: 'SnowTrace',
+      url: 'https://testnet.snowtrace.io',
+      apiUrl: 'https://api-testnet.snowtrace.io/api',
+    },
+  },
+  contracts: {
+    multicall3: {
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 7096959,
+    },
+  },
+  testnet: true,
+})
+
 /** Default values */
 export const NETWORK_LIST: NFTChain[] = [
   {
@@ -68,24 +95,10 @@ export const NETWORK_LIST: NFTChain[] = [
     price: formatEther(10000000000000000 as unknown as bigint),
     viemChain: mumbai,
     gdaInfo: {
-      nftContractAddress: '0x15C8796F2ff8165C16257001caEE928c8DecD851',
+      nftContractAddress: '0x83a0370216cd9a9199edf5a4bbd5f0a2842da3ff',
       gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
-      poolAddress: `0x973fDDEC2022d9a1F0781A3C9204de09fc450495`,
+      poolAddress: `0xd8d5eC9fb4e35E24587c2a890951440FEd1Ea776`,
       nativeTokenAddress: `0x96B82B65ACF7072eFEb00502F45757F254c2a0D4`
-    }
-  },
-  {
-    name: 'Ethereum Sepolia Testnet',
-    logo: './network-icons/ethereum.svg',
-    ticker: 'SEP',
-    // @ts-ignore
-    price: formatEther(10000000000000000 as unknown as bigint),
-    viemChain: sepolia,
-    gdaInfo: {
-      nftContractAddress: '0x08748d13392f18f5040de7722a4e29859035c338',
-      gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
-      poolAddress: `0xFE1a6BC4c07Fc183c2e7473dF86471D559a3a4FB`,
-      nativeTokenAddress: `0x30a6933Ca9230361972E413a15dC8114c952414e`
     }
   },
   {
@@ -108,6 +121,19 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: 'AVAX',
     price: 0.3,
     viemChain: avalanche
+  },
+  {
+    name: 'Avalance Snowtrace Testnet',
+    logo: './network-icons/avalanche.svg',
+    ticker: 'AVAX',
+    price: 0.01,
+    viemChain: avalancheFuji,
+    gdaInfo: {
+      nftContractAddress: '0xD34696Bb3a71FF35D8F7081734290A97a32A82B5',
+      gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
+      poolAddress: `0x83aE858c954AF90280c42d3Bc41e33fE4e4849e7`,
+      nativeTokenAddress: `0xfFD0f6d73ee52c68BF1b01C8AfA2529C97ca17F3`
+    }
   },
   {
     name: 'Optimism',

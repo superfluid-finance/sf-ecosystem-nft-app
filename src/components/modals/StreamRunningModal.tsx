@@ -56,7 +56,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
         <div className="rounded-[1.25rem] p-5 bg-white w-fit mx-auto">
           <StreamInfo streamInfo={streamInfo!} />
         </div>
-        <button className="cursor-pointer w-full bg-sf-green active:border-transparent active:outline-none focus:border-transparent focus:outline-none hover:border-transparent hover:outline-none rounded-[0.625rem] font-medium text-white" onClick={() => setModalOpen(close) }>Close</button>
+        <button className="cursor-pointer w-full bg-sf-green active:border-transparent active:outline-none focus:border-transparent focus:outline-none hover:border-transparent hover:outline-none rounded-[0.625rem] font-medium text-white" onClick={() => { setUpdate(true);setModalOpen(false);}}>Close</button>
       </div>
      </div>
     </div>

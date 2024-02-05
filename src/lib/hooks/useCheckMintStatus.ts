@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { usePrivy, useWallets } from '@privy-io/react-auth';
 import { NETWORK_LIST } from "../default";
 import { createPublicClient, getContract, http } from "viem";
 import { UserMintInfo } from "../types/user";
 import { gdaForwarderV1Abi } from "../abi/gdaForwarderV1";
 import { gdaNftContractAbi } from "../abi/gdaNFTContract";
+import { SelectedChainContext } from "../../components/layout";
 
 export const useCheckMintStatus = (triggerUpdate?: boolean) => {
 
   const { user, authenticated } = usePrivy()  
   const { wallets } = useWallets();
+  const { selected } = useContext(SelectedChainContext);
   const [ userMintInfo, setUserMintInfo ] = useState<UserMintInfo | undefined>(undefined)
 
   /** Check the user's mint status */
@@ -60,7 +62,7 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
   const checkClaimedStreamStatus = useCallback(async(mintStatus: UserMintInfo) => {
     let publicClient = createPublicClient({
       cacheTime: 10_000, 
-      chain: mintStatus.mintedChain.viemChain,
+      chain: mintStatus?.mintedChain?.viemChain ?? selected.viemChain,
       transport: http()
     })
 

@@ -18,7 +18,7 @@ export const LoggedInWallet = () => {
   const blockieRefDiv = useRef(null)
   const [blockieSet, setBlockieSet] = useState<boolean>(false)
   const { user, logout } = usePrivy()  
-  const viemWalletClient = useViemWalletClient(selected)
+  const viemWalletClient = useViemWalletClient({ selectedChain: selected })
   const userBalance = useRetrieveBalance()
   const {wallets} = useWallets();
 

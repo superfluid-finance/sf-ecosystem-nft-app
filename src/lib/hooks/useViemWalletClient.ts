@@ -4,7 +4,7 @@ import { NFTChain } from "../types/chain";
 import { createWalletClient, custom } from "viem";
 import { viemChainLookupById } from "../utils";
 
-export const useViemWalletClient = (selectedChain?: NFTChain) => {
+export const useViemWalletClient = ({selectedChain, triggerUpdate} : {selectedChain?: NFTChain, triggerUpdate?: boolean}) => {
 
   const [viemWalletClient, setViemWalletClient] = useState()
 
@@ -37,7 +37,7 @@ export const useViemWalletClient = (selectedChain?: NFTChain) => {
         getViemWalletClient(wallet)
       }
     }
-  }, [wallets, selectedChain])
+  }, [wallets, selectedChain, triggerUpdate])
 
   return viemWalletClient
 }
