@@ -10,7 +10,7 @@ export const CallToAction = () => {
   const { ready, authenticated } = usePrivy();
   const { selected } = useContext(SelectedChainContext);
 
-  const viemWalletClient = useViemWalletClient(selected);
+  const viemWalletClient = useViemWalletClient({ selectedChain: selected });
   const [correctNetwork, setCorrectNetwork] = useState<boolean>(false);
 
   // ensures that user is always on the right network
