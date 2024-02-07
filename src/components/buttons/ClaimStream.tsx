@@ -49,7 +49,6 @@ export const ClaimStreamButton = () => {
       let tx = await publicClient.waitForTransactionReceipt({ hash });
       tx = await publicClient.getTransactionReceipt({ hash });
 
-      // test this
       if (tx.status == "success") {
         let pastMintInfo = mintInfo
           ? mintInfo
@@ -77,7 +76,6 @@ export const ClaimStreamButton = () => {
         setErrorMessage(REJECTED_TRANSACTION_GENERAL);
       }
 
-      console.log(error);
       setLoading(false);
     }
   }, [user?.wallet?.address, viemWalletClient, mintInfo]);
