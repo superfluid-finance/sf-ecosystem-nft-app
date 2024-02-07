@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import PreviewImage from "../../assets/preview.png";
 import { NETWORK_LIST, TOOLTIP_TEXT } from "../../lib/default";
 import { useCountdown } from "../../lib/hooks/useCountdown";
 import { Timer } from "../common/Timer";
@@ -15,6 +14,8 @@ import { StreamInfo } from "../modals/StreamRunningModal";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 import { UserMintInfo } from "../../lib/types/user";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
+import { GenerativeArt } from "../nft/GenerativeArt";
+import { ClaimStreamModal } from "../modals/ClaimStreamModal";
 
 export const UserMintInfoContext = createContext<UserMintInfo>(null!);
 export const MintStatusContext = createContext<{
@@ -24,12 +25,34 @@ export const MintStatusContext = createContext<{
 
 /** Preview image of the NFT */
 const NFTPreview = () => {
+  let [seed, setSeed] = useState<number>();
+  const { user } = usePrivy();
+  const { wallets } = useWallets();
+
+  useEffect(() => {
+    if (wallets && wallets.length > 0) {
+      const wallet = wallets.find(
+        (wallet) => wallet.address == user?.wallet?.address,
+      );
+
+      if (
+        wallet &&
+        window.localStorage.getItem(`${user?.wallet?.address}_sf`)
+      ) {
+        let mintStatus = JSON.parse(
+          // @ts-ignore
+          window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+        );
+        setSeed(mintStatus?.tokenSeed ?? null);
+      }
+    } else {
+      setSeed(undefined);
+    }
+  }, [wallets]);
+
   return (
-    <div className="w-full md:w-1/2 rounded-2xl">
-      <img
-        src={PreviewImage}
-        className="w-full h-full rounded-2xl object-cover"
-      />
+    <div className="w-full md:w-1/2 rounded-2xl min-h-[70vh]">
+      <GenerativeArt seed={seed} />
     </div>
   );
 };

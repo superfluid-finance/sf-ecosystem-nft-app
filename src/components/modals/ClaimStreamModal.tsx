@@ -1,8 +1,9 @@
 import XIcon from "../../assets/xicon.svg";
-import NFTPreviewImage from "../../assets/preview.png";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { MintStatusContext } from "../views/Dashboard";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GenerativeArt } from "../nft/GenerativeArt";
+import { usePrivy, useWallets } from "@privy-io/react-auth";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -18,12 +19,40 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   };
 
   const NFTPreview = () => {
+    let [seed, setSeed] = useState<number>(0);
+    const { user } = usePrivy();
+    const { wallets } = useWallets();
+
+    useEffect(() => {
+      if (wallets && wallets.length > 0) {
+        const wallet = wallets.find(
+          (wallet) => wallet.address == user?.wallet?.address,
+        );
+
+        if (
+          wallet &&
+          window.localStorage.getItem(`${user?.wallet?.address}_sf`)
+        ) {
+          let mintStatus = JSON.parse(
+            // @ts-ignore
+            window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+          );
+
+          setSeed(mintStatus.tokenSeed);
+        }
+      }
+    }, [wallets]);
+
     return (
-      <img
-        src={NFTPreviewImage}
-        className="mx-auto max-h-[20rem]"
+      <div
         style={{ background: `url(/modal-sf-bg.png)` }}
-      />
+        className="mx-auto w-full h-full"
+      >
+        <GenerativeArt
+          parentElement={document.querySelector("#claim-stream-modal")}
+          seed={seed}
+        />
+      </div>
     );
   };
 
@@ -51,7 +80,8 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
             Metus quis sed tortor tincidunt tellus.
           </p>
           <div
-            className="flex flex-col gap-y-8 mt-6 !bg-no-repeat !bg-[center_-3rem]"
+            id="claim-stream-modal"
+            className="flex flex-col gap-y-8 mt-6 !bg-no-repeat !bg-[center_-3rem] min-h-[48vh] justify-between"
             style={{ background: `url(/modal-sf-bg.png)` }}
           >
             <NFTPreview />

@@ -50,6 +50,7 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
             let mintResult: any = await nftContract.read.userMint([
               wallet.address,
             ]);
+            let seed: any = await nftContract.read.calcURI([mintResult[1]]);
             let hasClaimedStream: any =
               await forwarderContract.read.isMemberConnected([
                 NETWORK_LIST[i].gdaInfo?.poolAddress!,
@@ -61,6 +62,7 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
               tokenId: Number(mintResult[1]),
               timestamp: Number(mintResult[2]),
               claimedStream: hasClaimedStream,
+              tokenSeed: Number(seed.split("seed=")[1]),
             };
 
             setUserMintInfo(userMintObj);

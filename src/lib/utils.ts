@@ -109,3 +109,15 @@ export const getDecimalPlacesToRoundTo = (value: Decimal): number => {
 
   return 18;
 };
+
+export function PRNG(modulo: number, salt: number, seed: number): number {
+  let str =
+    Number(
+      `${((2 ** 31 - 1) & Math.imul(48271, seed / salt)) / 2 ** 31}`
+        .split("")
+        .slice(-10)
+        .join(""),
+    ) % modulo;
+
+  return str;
+}

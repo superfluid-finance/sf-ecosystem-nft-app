@@ -50,11 +50,19 @@ export const Mint = () => {
           args: [user?.wallet?.address as `0x${string}`],
         });
 
+        let seed: any = await publicClient.readContract({
+          address: selected.gdaInfo?.nftContractAddress as `0x${string}`,
+          abi: gdaNftContractAbi,
+          functionName: "calcURI",
+          args: [mintResult[1]],
+        });
+
         let userMintObj = {
           mintedChain: selected,
           tokenId: Number(mintResult[1]),
           timestamp: Number(mintResult[2]),
           claimedStream: false,
+          tokenSeed: Number(seed.split("seed=")[1]),
         };
 
         // store this in local storage for easier retrieval

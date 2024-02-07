@@ -5,4 +5,5 @@ type UserMintInfo = {
   timestamp: number;
   tokenId: number;
   claimedStream: boolean;
+  tokenSeed: number;
 };
