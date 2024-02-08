@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 import { NFTChain } from "../types/chain";
 import { createWalletClient, custom } from "viem";
 import { viemChainLookupById } from "../utils";

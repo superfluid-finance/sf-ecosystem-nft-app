@@ -2,7 +2,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 // @ts-ignore
 import { createIcon } from "../../lib/blockies.js";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 import { truncateAddress } from "../../lib/utils.js";
 import { useViemWalletClient } from "../../lib/hooks/useViemWalletClient.js";
 import { ConnectedWalletContext, SelectedChainContext } from "../layout.js";
@@ -18,7 +18,6 @@ export const LoggedInWallet = () => {
   const { user, logout } = usePrivy();
   const viemWalletClient = useViemWalletClient({ selectedChain: selected });
   const userBalance = useRetrieveBalance();
-  const { wallets } = useWallets();
   const wallet = useContext(ConnectedWalletContext);
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);

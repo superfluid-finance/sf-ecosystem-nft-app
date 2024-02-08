@@ -12,7 +12,7 @@ import {
 } from "../layout";
 import { CallToAction } from "../buttons/CallToAction";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 import { SwitchNetwork } from "../buttons/SwitchNetwork";
 import { StreamInfo } from "../modals/StreamRunningModal";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
@@ -30,7 +30,6 @@ export const MintStatusContext = createContext<{
 const NFTPreview = () => {
   let [seed, setSeed] = useState<number>();
   const { user } = usePrivy();
-  const { wallets } = useWallets();
   const wallet = useContext(ConnectedWalletContext);
 
   useEffect(() => {
