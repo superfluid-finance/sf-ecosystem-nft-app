@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { PRNG } from "../../lib/utils";
 
 /** Component that takes a seed, and display the generative art */
-export const GenerativeArt = ({
+const GenArt = ({
   parentElement = window,
   seed = new Date().getTime(),
 }: {
@@ -428,3 +428,5 @@ export const GenerativeArt = ({
     </div>
   );
 };
+
+export const GenerativeArt = React.memo(GenArt);
