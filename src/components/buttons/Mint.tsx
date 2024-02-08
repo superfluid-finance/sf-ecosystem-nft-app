@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
 import { useRetrieveBalance } from "../../lib/hooks/useRetrieveBalance";
-import { SelectedChainContext } from "../layout";
+import { ConnectedWalletContext, SelectedChainContext } from "../layout";
 import { ClaimStreamModal } from "../modals/ClaimStreamModal";
 import { createPublicClient, http, parseEther } from "viem";
 import { useViemWalletClient } from "../../lib/hooks/useViemWalletClient";
@@ -15,6 +15,7 @@ import {
 export const Mint = () => {
   const { user } = usePrivy();
   const userBalance = useRetrieveBalance();
+  const wallet = useContext(ConnectedWalletContext);
   const [loading, setLoading] = useState<boolean>(false);
   const { selected } = useContext(SelectedChainContext);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -47,7 +48,7 @@ export const Mint = () => {
           address: selected.gdaInfo?.nftContractAddress as `0x${string}`,
           abi: gdaNftContractAbi,
           functionName: "userMint",
-          args: [user?.wallet?.address as `0x${string}`],
+          args: [wallet?.address as `0x${string}`],
         });
 
         let seed: any = await publicClient.readContract({
@@ -67,7 +68,7 @@ export const Mint = () => {
 
         // store this in local storage for easier retrieval
         localStorage.setItem(
-          `${user?.wallet?.address}_sf`,
+          `${wallet?.address}_sf`,
           JSON.stringify(userMintObj),
         );
 
@@ -81,7 +82,7 @@ export const Mint = () => {
       console.log(error);
       setLoading(false);
     }
-  }, [user?.wallet?.address, viemWalletClient]);
+  }, [wallet?.address, viemWalletClient]);
 
   useEffect(() => {
     // @ts-ignore

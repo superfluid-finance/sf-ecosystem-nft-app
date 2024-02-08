@@ -1,4 +1,10 @@
-import { PropsWithChildren, createContext, useEffect, useState } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import SuperFluidLogo from "../assets/superfluid-logo.svg";
 import BackgroundImage from "../assets/bg.png";
 import { usePrivy, useWallets, ConnectedWallet } from "@privy-io/react-auth";
@@ -34,7 +40,7 @@ const Background = () => {
 };
 
 export const Layout = ({ children }: PropsWithChildren) => {
-  const { user, ready, authenticated } = usePrivy();
+  const { ready, authenticated } = usePrivy();
   const { wallets } = useWallets();
   const [selected, setSelected] = useState<NFTChain>(DEFAULT_SELECTED_CHAIN);
   const [connectedWallet, setConnectedWallet] = useState<ConnectedWallet>();
@@ -49,10 +55,8 @@ export const Layout = ({ children }: PropsWithChildren) => {
   }, [chainMintInfos]);
 
   useEffect(() => {
-    if (authenticated && wallets && user?.wallet?.address) {
-      const wallet = wallets.find(
-        (wallet: any) => wallet.address == user.wallet?.address,
-      );
+    if (authenticated && wallets && wallets.length > 0) {
+      const wallet = wallets[0];
 
       if (wallet?.chainId) {
         setConnectedWallet(wallet);

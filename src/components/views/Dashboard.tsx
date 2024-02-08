@@ -12,7 +12,6 @@ import {
 } from "../layout";
 import { CallToAction } from "../buttons/CallToAction";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
-import { usePrivy } from "@privy-io/react-auth";
 import { SwitchNetwork } from "../buttons/SwitchNetwork";
 import { StreamInfo } from "../modals/StreamRunningModal";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
@@ -29,14 +28,13 @@ export const MintStatusContext = createContext<{
 /** Preview image of the NFT */
 const NFTPreview = () => {
   let [seed, setSeed] = useState<number>();
-  const { user } = usePrivy();
   const wallet = useContext(ConnectedWalletContext);
 
   useEffect(() => {
-    if (wallet && window.localStorage.getItem(`${user?.wallet?.address}_sf`)) {
+    if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
       let mintStatus = JSON.parse(
         // @ts-ignore
-        window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+        window.localStorage.getItem(`${wallet?.address}_sf`),
       );
       setSeed(mintStatus?.tokenSeed ?? null);
     } else {

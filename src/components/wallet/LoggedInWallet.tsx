@@ -15,7 +15,7 @@ export const LoggedInWallet = () => {
 
   const blockieRefDiv = useRef(null);
   const [blockieSet, setBlockieSet] = useState<boolean>(false);
-  const { user, logout } = usePrivy();
+  const { logout } = usePrivy();
   const viemWalletClient = useViemWalletClient({ selectedChain: selected });
   const userBalance = useRetrieveBalance();
   const wallet = useContext(ConnectedWalletContext);
@@ -24,7 +24,7 @@ export const LoggedInWallet = () => {
 
   /** Function to generate blockie icon */
   let icon = createIcon({
-    seed: user?.wallet?.address,
+    seed: wallet?.address,
     size: 6,
     scale: 5,
   });
@@ -62,7 +62,7 @@ export const LoggedInWallet = () => {
       <div className="blockie-wrapper" ref={blockieRefDiv}></div>
       <div className="flex flex-col">
         <span className="text-black font-medium">
-          {truncateAddress(user?.wallet?.address as string)}
+          {truncateAddress((wallet?.address as string) || "")}
         </span>
         <span className="text-darkgray -mt-1 text-[12px]">
           {Number(userBalance).toFixed(4)} {/** @ts-ignore */}

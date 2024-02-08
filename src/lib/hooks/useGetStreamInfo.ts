@@ -1,18 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { StreamInfoType } from "../types/stream";
 import { createPublicClient, erc20Abi, getContract, http } from "viem";
-import { usePrivy } from "@privy-io/react-auth";
 import { superfluidPoolAbi } from "../abi/superfluidPool";
 import { UserMintInfo } from "../types/user";
+import { ConnectedWalletContext } from "../../components/layout";
 
 export const useGetStreamInfo = () => {
   const [streamInfo, setStreamInfo] = useState<StreamInfoType>();
-  const { user } = usePrivy();
+  const wallet = useContext(ConnectedWalletContext);
 
   const getStreamInfo = useCallback(async () => {
     let mintedInfo: UserMintInfo = JSON.parse(
       // @ts-ignore
-      localStorage.getItem(user?.wallet?.address + "_sf"),
+      localStorage.getItem(wallet?.address + "_sf"),
     );
 
     let publicClient = createPublicClient({
@@ -34,11 +34,11 @@ export const useGetStreamInfo = () => {
     });
 
     let flowRate: any = await superfluidPoolContract.read.getMemberFlowRate([
-      user?.wallet?.address as `0x${string}`,
+      wallet?.address as `0x${string}`,
     ]);
     let balanceTimestamp = Number(new Date().getTime()) / 1000;
     let balance: any = await nativeTokenContract.read.balanceOf([
-      user?.wallet?.address as `0x${string}`,
+      wallet?.address as `0x${string}`,
     ]);
 
     setStreamInfo({
@@ -46,7 +46,7 @@ export const useGetStreamInfo = () => {
       balance: balance as bigint,
       balanceTimestamp: balanceTimestamp,
     });
-  }, [user?.wallet?.address]);
+  }, [wallet?.address]);
 
   useEffect(() => {
     getStreamInfo();

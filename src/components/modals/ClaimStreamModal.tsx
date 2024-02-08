@@ -3,7 +3,6 @@ import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { MintStatusContext } from "../views/Dashboard";
 import { useContext, useEffect, useState } from "react";
 import { GenerativeArt } from "../nft/GenerativeArt";
-import { usePrivy } from "@privy-io/react-auth";
 import { ConnectedWalletContext } from "../layout";
 
 type ClaimStreamModalProps = {
@@ -22,16 +21,12 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
 
   const NFTPreview = () => {
     let [seed, setSeed] = useState<number>(0);
-    const { user } = usePrivy();
 
     useEffect(() => {
-      if (
-        wallet &&
-        window.localStorage.getItem(`${user?.wallet?.address}_sf`)
-      ) {
+      if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
         let mintStatus = JSON.parse(
           // @ts-ignore
-          window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+          window.localStorage.getItem(`${wallet?.address}_sf`),
         );
 
         setSeed(mintStatus.tokenSeed);
