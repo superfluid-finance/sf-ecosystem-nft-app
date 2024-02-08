@@ -21,7 +21,6 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
    ** in context to be used throughout the app
    **/
   const checkMintedChain = useCallback(async () => {
-    console.log("hereerere");
     let publicClient;
 
     for (let i = 0; i < NETWORK_LIST.length; i++) {
@@ -119,8 +118,6 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
   );
 
   useEffect(() => {
-    console.log("triggered");
-    console.log(wallet);
     if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
       let mintStatus = JSON.parse(
         // @ts-ignore
