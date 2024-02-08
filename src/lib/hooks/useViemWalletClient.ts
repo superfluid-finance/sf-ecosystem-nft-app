@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { NFTChain } from "../types/chain";
 import { createWalletClient, custom } from "viem";
 import { viemChainLookupById } from "../utils";
+import { ConnectedWalletContext } from "../../components/layout";
 
 export const useViemWalletClient = ({
   selectedChain,
@@ -14,7 +15,7 @@ export const useViemWalletClient = ({
   const [viemWalletClient, setViemWalletClient] = useState();
 
   const { user } = usePrivy();
-  const { wallets } = useWallets();
+  const wallet = useContext(ConnectedWalletContext);
 
   useEffect(() => {
     const getViemWalletClient = async (wallet: any) => {
@@ -33,16 +34,10 @@ export const useViemWalletClient = ({
       setViemWalletClient(walletClient);
     };
 
-    if (wallets && user?.wallet?.address) {
-      const wallet = wallets.find(
-        (wallet: any) => wallet.address == user.wallet?.address,
-      );
-
-      if (wallet?.chainId) {
-        getViemWalletClient(wallet);
-      }
+    if (wallet?.chainId) {
+      getViemWalletClient(wallet);
     }
-  }, [wallets, selectedChain, triggerUpdate]);
+  }, [wallet, selectedChain, triggerUpdate]);
 
   return viemWalletClient;
 };

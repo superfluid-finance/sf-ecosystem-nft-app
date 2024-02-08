@@ -1,6 +1,5 @@
 import { useCallback, useContext, useState } from "react";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
-import { SelectedChainContext } from "../layout";
+import { ConnectedWalletContext, SelectedChainContext } from "../layout";
 import { LoadingSpinner } from "../common/Loading";
 import { REJECTED_TRANSACTION_GENERAL } from "../../lib/dictionary";
 
@@ -11,10 +10,9 @@ export const SwitchNetwork = ({
   idealNetwork?: number;
   type: "mint" | "claim stream";
 }) => {
-  const { user } = usePrivy();
-  const { wallets } = useWallets();
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const wallet = useContext(ConnectedWalletContext);
 
   const { selected } = useContext(SelectedChainContext);
 
@@ -48,16 +46,10 @@ export const SwitchNetwork = ({
     setLoading(true);
     setErrorMessage("");
 
-    if (wallets && wallets.length > 0) {
-      const wallet = wallets.find(
-        (wallet) => wallet.address == user?.wallet?.address,
-      );
-
-      if (wallet && !idealNetwork) {
-        performSwitchChain(wallet);
-      } else if (wallet && idealNetwork) {
-        performSwitchChainToIdealNetwork(wallet, idealNetwork);
-      }
+    if (wallet && !idealNetwork) {
+      performSwitchChain(wallet);
+    } else if (wallet && idealNetwork) {
+      performSwitchChainToIdealNetwork(wallet, idealNetwork);
     } else {
       setErrorMessage(REJECTED_TRANSACTION_GENERAL);
       setLoading(false);

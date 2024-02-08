@@ -3,7 +3,8 @@ import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { MintStatusContext } from "../views/Dashboard";
 import { useContext, useEffect, useState } from "react";
 import { GenerativeArt } from "../nft/GenerativeArt";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
+import { ConnectedWalletContext } from "../layout";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -11,6 +12,7 @@ type ClaimStreamModalProps = {
 
 export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   const { setUpdate } = useContext(MintStatusContext);
+  const wallet = useContext(ConnectedWalletContext);
 
   const GreyOverlay = () => {
     return (
@@ -21,27 +23,20 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   const NFTPreview = () => {
     let [seed, setSeed] = useState<number>(0);
     const { user } = usePrivy();
-    const { wallets } = useWallets();
 
     useEffect(() => {
-      if (wallets && wallets.length > 0) {
-        const wallet = wallets.find(
-          (wallet) => wallet.address == user?.wallet?.address,
+      if (
+        wallet &&
+        window.localStorage.getItem(`${user?.wallet?.address}_sf`)
+      ) {
+        let mintStatus = JSON.parse(
+          // @ts-ignore
+          window.localStorage.getItem(`${user?.wallet?.address}_sf`),
         );
 
-        if (
-          wallet &&
-          window.localStorage.getItem(`${user?.wallet?.address}_sf`)
-        ) {
-          let mintStatus = JSON.parse(
-            // @ts-ignore
-            window.localStorage.getItem(`${user?.wallet?.address}_sf`),
-          );
-
-          setSeed(mintStatus.tokenSeed);
-        }
+        setSeed(mintStatus.tokenSeed);
       }
-    }, [wallets]);
+    }, [wallet]);
 
     return (
       <div

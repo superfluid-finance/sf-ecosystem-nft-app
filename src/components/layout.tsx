@@ -1,7 +1,7 @@
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import SuperFluidLogo from "../assets/superfluid-logo.svg";
 import BackgroundImage from "../assets/bg.png";
-import { usePrivy } from "@privy-io/react-auth";
+import { usePrivy, useWallets, ConnectedWallet } from "@privy-io/react-auth";
 import { LoggedInWallet } from "./wallet/LoggedInWallet";
 import { DEFAULT_SELECTED_CHAIN } from "../lib/default";
 import {
@@ -21,6 +21,10 @@ export const ChainMintInfosContext = createContext<ChainMintInfosContextType>(
   null!,
 );
 
+export const ConnectedWalletContext = createContext<
+  ConnectedWallet | undefined
+>(null!);
+
 const Background = () => {
   return (
     <div className="w-full h-full fixed top-0 left-0">
@@ -30,8 +34,10 @@ const Background = () => {
 };
 
 export const Layout = ({ children }: PropsWithChildren) => {
-  const { ready, authenticated } = usePrivy();
+  const { user, ready, authenticated } = usePrivy();
+  const { wallets } = useWallets();
   const [selected, setSelected] = useState<NFTChain>(DEFAULT_SELECTED_CHAIN);
+  const [connectedWallet, setConnectedWallet] = useState<ConnectedWallet>();
   const [allChainMintedInfo, setAllChainMintedInfo] =
     useState<AllChainMintInfos>({});
   const chainMintInfos = useGetChainMintInfos();
@@ -42,30 +48,46 @@ export const Layout = ({ children }: PropsWithChildren) => {
     }
   }, [chainMintInfos]);
 
-  return (
-    <ChainMintInfosContext.Provider
-      value={{
-        chainMintInfos: allChainMintedInfo,
-        setChainMintInfos: setAllChainMintedInfo,
-      }}
-    >
-      <SelectedChainContext.Provider value={{ selected, setSelected }}>
-        <div className="relative w-screen bigscreen:overflow-hidden bg-[#EAEFF4] min-h-screen">
-          <Background />
-          <header className="fixed top-0 left-0 w-full pr-8 py-2 z-[11] flex justify-between items-center">
-            <img src={SuperFluidLogo} className="w-[16.375rem]" />
+  useEffect(() => {
+    if (authenticated && wallets && user?.wallet?.address) {
+      const wallet = wallets.find(
+        (wallet: any) => wallet.address == user.wallet?.address,
+      );
 
-            {ready && authenticated && (
-              <div className="relative">
-                <LoggedInWallet />
-              </div>
-            )}
-          </header>
-          <main className="relative py-16 md:py-[6rem] w-full h-full flex justify-center items-center">
-            {children}
-          </main>
-        </div>
-      </SelectedChainContext.Provider>
-    </ChainMintInfosContext.Provider>
+      if (wallet?.chainId) {
+        setConnectedWallet(wallet);
+      }
+    } else {
+      setConnectedWallet(undefined);
+    }
+  }, [wallets, authenticated]);
+
+  return (
+    <ConnectedWalletContext.Provider value={connectedWallet}>
+      <ChainMintInfosContext.Provider
+        value={{
+          chainMintInfos: allChainMintedInfo,
+          setChainMintInfos: setAllChainMintedInfo,
+        }}
+      >
+        <SelectedChainContext.Provider value={{ selected, setSelected }}>
+          <div className="relative w-screen bigscreen:overflow-hidden bg-[#EAEFF4] min-h-screen">
+            <Background />
+            <header className="fixed top-0 left-0 w-full pr-8 py-2 z-[11] flex justify-between items-center">
+              <img src={SuperFluidLogo} className="w-[16.375rem]" />
+
+              {ready && authenticated && (
+                <div className="relative">
+                  <LoggedInWallet />
+                </div>
+              )}
+            </header>
+            <main className="relative py-16 md:py-[6rem] w-full h-full flex justify-center items-center">
+              {children}
+            </main>
+          </div>
+        </SelectedChainContext.Provider>
+      </ChainMintInfosContext.Provider>
+    </ConnectedWalletContext.Provider>
   );
 };

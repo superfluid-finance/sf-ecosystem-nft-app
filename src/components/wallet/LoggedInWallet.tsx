@@ -5,7 +5,7 @@ import { createIcon } from "../../lib/blockies.js";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { truncateAddress } from "../../lib/utils.js";
 import { useViemWalletClient } from "../../lib/hooks/useViemWalletClient.js";
-import { SelectedChainContext } from "../layout.js";
+import { ConnectedWalletContext, SelectedChainContext } from "../layout.js";
 import { useRetrieveBalance } from "../../lib/hooks/useRetrieveBalance.js";
 import { DropdownArrow } from "../../assets/dropdown-arrow.js";
 import DisconnectIcon from "../../assets/disconnect.svg";
@@ -19,6 +19,7 @@ export const LoggedInWallet = () => {
   const viemWalletClient = useViemWalletClient({ selectedChain: selected });
   const userBalance = useRetrieveBalance();
   const { wallets } = useWallets();
+  const wallet = useContext(ConnectedWalletContext);
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
@@ -49,14 +50,8 @@ export const LoggedInWallet = () => {
   // we switch user to right network first before we
   // request wallet balance
   useEffect(() => {
-    if (wallets && wallets.length > 0) {
-      const wallet = wallets.find(
-        (wallet) => wallet.address == user?.wallet?.address,
-      );
-
-      if (wallet) {
-        performSwitchChain(wallet);
-      }
+    if (wallet) {
+      performSwitchChain(wallet);
     }
   }, [selected]);
 

@@ -1,15 +1,18 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 import { NETWORK_LIST } from "../default";
 import { createPublicClient, getContract, http } from "viem";
 import { UserMintInfo } from "../types/user";
 import { gdaForwarderV1Abi } from "../abi/gdaForwarderV1";
 import { gdaNftContractAbi } from "../abi/gdaNFTContract";
-import { SelectedChainContext } from "../../components/layout";
+import {
+  ConnectedWalletContext,
+  SelectedChainContext,
+} from "../../components/layout";
 
 export const useCheckMintStatus = (triggerUpdate?: boolean) => {
-  const { user, authenticated } = usePrivy();
-  const { wallets } = useWallets();
+  const { user } = usePrivy();
+  const wallet = useContext(ConnectedWalletContext);
   const { selected } = useContext(SelectedChainContext);
   const [userMintInfo, setUserMintInfo] = useState<UserMintInfo | undefined>(
     undefined,
@@ -117,38 +120,28 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
   );
 
   useEffect(() => {
-    if (authenticated && user?.wallet?.address) {
-      const wallet = wallets.find(
-        (wallet: any) => wallet.address == user.wallet?.address,
+    if (wallet && window.localStorage.getItem(`${user?.wallet?.address}_sf`)) {
+      let mintStatus = JSON.parse(
+        // @ts-ignore
+        window.localStorage.getItem(`${user?.wallet?.address}_sf`),
       );
 
-      // check if local storage already have info on the mint status.
-      if (
-        wallet &&
-        window.localStorage.getItem(`${user?.wallet?.address}_sf`)
-      ) {
-        let mintStatus = JSON.parse(
-          // @ts-ignore
-          window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+      // if last retrieved info has not been connected to pool, check the status
+      if (!mintStatus.claimedStream) {
+        checkClaimedStreamStatus(mintStatus);
+      } else {
+        setUserMintInfo(
+          JSON.parse(
+            window.localStorage.getItem(`${user?.wallet?.address}_sf`)!,
+          ),
         );
-
-        // if last retrieved info has not been connected to pool, check the status
-        if (!mintStatus.claimedStream) {
-          checkClaimedStreamStatus(mintStatus);
-        } else {
-          setUserMintInfo(
-            JSON.parse(
-              window.localStorage.getItem(`${user?.wallet?.address}_sf`)!,
-            ),
-          );
-        }
-      } else if (wallet) {
-        checkMintedChain(wallet);
       }
+    } else if (wallet) {
+      checkMintedChain(wallet);
     } else {
       setUserMintInfo(undefined);
     }
-  }, [wallets, authenticated, triggerUpdate]);
+  }, [wallet, triggerUpdate]);
 
   return userMintInfo;
 };

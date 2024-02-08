@@ -5,7 +5,11 @@ import { Timer } from "../common/Timer";
 import { DropdownArrow } from "../../assets/dropdown-arrow";
 import InfoIcon from "../../assets/info-tooltip.svg";
 import { NFTChain } from "../../lib/types/chain";
-import { ChainMintInfosContext, SelectedChainContext } from "../layout";
+import {
+  ChainMintInfosContext,
+  ConnectedWalletContext,
+  SelectedChainContext,
+} from "../layout";
 import { CallToAction } from "../buttons/CallToAction";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
@@ -15,7 +19,6 @@ import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 import { UserMintInfo } from "../../lib/types/user";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { GenerativeArt } from "../nft/GenerativeArt";
-import { ClaimStreamModal } from "../modals/ClaimStreamModal";
 
 export const UserMintInfoContext = createContext<UserMintInfo>(null!);
 export const MintStatusContext = createContext<{
@@ -28,27 +31,19 @@ const NFTPreview = () => {
   let [seed, setSeed] = useState<number>();
   const { user } = usePrivy();
   const { wallets } = useWallets();
+  const wallet = useContext(ConnectedWalletContext);
 
   useEffect(() => {
-    if (wallets && wallets.length > 0) {
-      const wallet = wallets.find(
-        (wallet) => wallet.address == user?.wallet?.address,
+    if (wallet && window.localStorage.getItem(`${user?.wallet?.address}_sf`)) {
+      let mintStatus = JSON.parse(
+        // @ts-ignore
+        window.localStorage.getItem(`${user?.wallet?.address}_sf`),
       );
-
-      if (
-        wallet &&
-        window.localStorage.getItem(`${user?.wallet?.address}_sf`)
-      ) {
-        let mintStatus = JSON.parse(
-          // @ts-ignore
-          window.localStorage.getItem(`${user?.wallet?.address}_sf`),
-        );
-        setSeed(mintStatus?.tokenSeed ?? null);
-      }
+      setSeed(mintStatus?.tokenSeed ?? null);
     } else {
       setSeed(undefined);
     }
-  }, [wallets]);
+  }, [wallet]);
 
   return (
     <div className="w-full md:w-1/2 rounded-2xl min-h-[70vh]">
@@ -313,29 +308,22 @@ const ToMintContent = () => {
 /** Displayed to wallets who have minted, but have NOT claimed their stream */
 /** Clicking on the Claim Stream triggers the `connectPool` transaction.  */
 const ClaimStreamContent = () => {
-  const { wallets } = useWallets();
-  const { authenticated, user } = usePrivy();
   const [requireSwitchNetwork, setRequireSwitchNetwork] =
     useState<boolean>(false);
   const { mintedChain } = useContext(UserMintInfoContext);
+  const wallet = useContext(ConnectedWalletContext);
 
   // ensures that user is always on the right network as the minted network
   // before allowing claiming of stream.
   useEffect(() => {
-    if (wallets && authenticated && user?.wallet?.address) {
-      const wallet = wallets.find(
-        (wallet: any) => wallet.address == user.wallet?.address,
-      );
-
-      if (wallet) {
-        if (Number(wallet.chainId.split(":")[1]) != mintedChain.viemChain.id) {
-          setRequireSwitchNetwork(true);
-        } else {
-          setRequireSwitchNetwork(false);
-        }
+    if (wallet) {
+      if (Number(wallet.chainId.split(":")[1]) != mintedChain.viemChain.id) {
+        setRequireSwitchNetwork(true);
+      } else {
+        setRequireSwitchNetwork(false);
       }
     }
-  }, [wallets]);
+  }, [wallet]);
 
   return (
     <>

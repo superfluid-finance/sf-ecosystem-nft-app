@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { usePrivy } from "@privy-io/react-auth";
 import { createPublicClient, formatEther, http } from "viem";
 import { viemChainLookupById } from "../utils";
+import { ConnectedWalletContext } from "../../components/layout";
 
 export const useRetrieveBalance = () => {
-  const { user, authenticated } = usePrivy();
+  const { user } = usePrivy();
   const [userBalance, setUserBalance] = useState<number>(0);
-  const { wallets } = useWallets();
+  const wallet = useContext(ConnectedWalletContext);
 
   const getBalance = useCallback(async (wallet: any) => {
     if (wallet && wallet?.chainId) {
@@ -28,16 +29,10 @@ export const useRetrieveBalance = () => {
   }, []);
 
   useEffect(() => {
-    if (wallets && authenticated && user?.wallet?.address) {
-      const wallet = wallets.find(
-        (wallet: any) => wallet.address == user.wallet?.address,
-      );
-
-      if (wallet) {
-        getBalance(wallet);
-      }
+    if (wallet) {
+      getBalance(wallet);
     }
-  }, [wallets, authenticated]);
+  }, [wallet]);
 
   return userBalance;
 };
