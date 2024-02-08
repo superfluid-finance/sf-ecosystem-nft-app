@@ -46,17 +46,9 @@ const privyConfig: PrivyClientConfig = {
   ],
 };
 
-const handleLogin = (user: any) => {
-  console.log(`User ${user.id} logged in!`);
-};
-
 function App() {
   return (
-    <PrivyProvider
-      appId={`clpispdty00ycl80fpueukbhl`}
-      onSuccess={handleLogin}
-      config={privyConfig}
-    >
+    <PrivyProvider appId={`clsd1jt3u04rgg0va9ey88znj`} config={privyConfig}>
       <Layout>
         <Dashboard />
       </Layout>
