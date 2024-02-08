@@ -48,7 +48,7 @@ const privyConfig: PrivyClientConfig = {
 
 function App() {
   return (
-    <PrivyProvider appId={`clsd1jt3u04rgg0va9ey88znj`} config={privyConfig}>
+    <PrivyProvider appId={import.meta.env.VITE_PRIVY_KEY} config={privyConfig}>
       <Layout>
         <Dashboard />
       </Layout>
