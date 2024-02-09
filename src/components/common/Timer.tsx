@@ -1,4 +1,6 @@
-export const Timer = ({
+import React from "react";
+
+const TimerDisplay = ({
   countdown,
   className,
 }: {
@@ -14,3 +16,5 @@ export const Timer = ({
     </div>
   );
 };
+
+export const Timer = React.memo(TimerDisplay);

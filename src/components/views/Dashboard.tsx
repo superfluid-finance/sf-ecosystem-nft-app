@@ -66,7 +66,7 @@ const DropdownSelect = () => {
 
   const Option = ({ chainInfo }: { chainInfo: NFTChain }) => {
     let countdown = useCountdown(
-      (chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil || 0) * 1000,
+      (chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil ?? 0) * 1000,
     );
 
     return (
