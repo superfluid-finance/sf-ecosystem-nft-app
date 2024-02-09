@@ -78,7 +78,9 @@ const DropdownSelect = () => {
 
           <div className="w-full flex justify-between items-center">
             <p className="font-medium text-sm text-darkgray">
-              Stream will be flowing for:
+              {window.innerWidth <= 568
+                ? "Stream flows for:"
+                : "Stream will be flowing for:"}
             </p>
             {chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil ? (
               <Timer countdown={countdown} />
@@ -180,7 +182,11 @@ const MintInfoBox = () => {
         </p>
       </div>
       <div className="w-full text-sm flex justify-between items-center">
-        <p className="text-darkgray">Stream will be flowing for:</p>
+        <p className="text-darkgray">
+          {window.innerWidth <= 568
+            ? "Stream flows for:"
+            : "Stream will be flowing for:"}
+        </p>
         <div className="flex gap-x-2 items-center">
           {lastMintedTimestamp ? (
             <Timer countdown={countdown} className="!text-black-2" />
@@ -265,7 +271,9 @@ const UserMintInfoBox = ({
           </div>
           <div className="w-full flex justify-between items-center">
             <p className="font-medium text-sm text-darkgray">
-              Stream will be flowing for:
+              {window.innerWidth <= 568
+                ? "Stream flows for:"
+                : "Stream will be flowing for:"}
             </p>
             <div className="flex gap-x-2 items-center">
               {lastMintedTimestamp ? (
