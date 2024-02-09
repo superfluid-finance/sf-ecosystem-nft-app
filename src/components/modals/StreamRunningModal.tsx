@@ -19,10 +19,12 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
       <div className="flex flex-row gap-x-2 items-center">
         <img src={USDCx} className="w-5 h-5 md:w-8 md:h-8" />
         <div className="font-medium text-[24px] sm:text-[2rem] bigscreen:text-lg leading-[1] flex gap-x-2 items-end">
-          <p>
+          <p className="w-[10.5rem] sm:w-[14rem] bigscreen:w-[18.5rem]">
             <FlowingBalance
-              balance={streamInfo?.balance}
-              balanceTimestamp={streamInfo?.balanceTimestamp}
+              startingBalance={streamInfo?.balance}
+              startingBalanceDate={
+                new Date(streamInfo?.balanceTimestamp * 1000)
+              }
               flowRate={streamInfo?.flowRate}
             />
           </p>
