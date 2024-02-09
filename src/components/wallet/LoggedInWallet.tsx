@@ -56,7 +56,7 @@ export const LoggedInWallet = () => {
 
   return (
     <div
-      className="flex gap-x-4 items-center cursor-pointer relative"
+      className="flex gap-x-2 md:gap-x-4 items-center cursor-pointer relative"
       onClick={() => setOpenDropdown(!openDropdown)}
     >
       <div className="blockie-wrapper" ref={blockieRefDiv}></div>

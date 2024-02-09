@@ -22,6 +22,7 @@ export default {
       lg: "2.625rem",
     },
     screens: {
+      sm: "671px",
       md: "1080px",
       bigscreen: "1400px",
     },

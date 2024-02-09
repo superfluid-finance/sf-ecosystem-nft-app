@@ -77,8 +77,11 @@ export const Layout = ({ children }: PropsWithChildren) => {
         <SelectedChainContext.Provider value={{ selected, setSelected }}>
           <div className="relative w-screen bigscreen:overflow-hidden bg-[#EAEFF4] min-h-screen">
             <Background />
-            <header className="fixed top-0 left-0 w-full pr-8 py-2 z-[11] flex justify-between items-center">
-              <img src={SuperFluidLogo} className="w-[16.375rem]" />
+            <header className="fixed top-0 left-0 w-full pl-2 md:pl-0 pr-8 py-2 z-[11] flex justify-between items-center">
+              <img
+                src={SuperFluidLogo}
+                className="w-[12rem] md:w-[16.375rem]"
+              />
 
               {ready && authenticated && (
                 <div className="relative">
@@ -86,7 +89,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
                 </div>
               )}
             </header>
-            <main className="relative py-16 md:py-[6rem] w-full h-full flex justify-center items-center">
+            <main className="relative pt-[7rem] pb-[4rem] md:py-[6rem] w-full min-h-[100vh] flex justify-center items-center">
               {children}
             </main>
           </div>

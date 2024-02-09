@@ -17,8 +17,8 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
         Total amount streamed
       </span>
       <div className="flex flex-row gap-x-2 items-center">
-        <img src={USDCx} className="w-6 h-6 bigscreen:w-8 bigscreen:h-8" />
-        <div className="font-medium text-[2rem] text-[24px] bigscreen:text-lg leading-[1] flex gap-x-2 items-end">
+        <img src={USDCx} className="w-5 h-5 md:w-8 md:h-8" />
+        <div className="font-medium text-[24px] sm:text-[2rem] bigscreen:text-lg leading-[1] flex gap-x-2 items-end">
           <p>
             <FlowingBalance
               balance={streamInfo?.balance}
@@ -26,7 +26,7 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
               flowRate={streamInfo?.flowRate}
             />
           </p>
-          <span className="text-base bigscreen:text-md text-sf-green -ml-1">
+          <span className="text-base text-sm sm:text-md text-sf-green -ml-1">
             USDCx
           </span>
         </div>

@@ -29,6 +29,7 @@ export const MintStatusContext = createContext<{
 const NFTPreview = () => {
   let [seed, setSeed] = useState<number>();
   const wallet = useContext(ConnectedWalletContext);
+  const [element, setElement] = useState<Element>();
 
   useEffect(() => {
     if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
@@ -40,11 +41,16 @@ const NFTPreview = () => {
     } else {
       setSeed(undefined);
     }
+
+    setElement(document.querySelector("#gen-art-wrapper")!);
   }, [wallet]);
 
   return (
-    <div className="w-full md:w-1/2 rounded-2xl min-h-[70vh]">
-      <GenerativeArt seed={seed} />
+    <div
+      id="gen-art-wrapper"
+      className="w-full md:w-1/2 rounded-2xl max-h-[60vh] bigscreen:min-h-[70vh]"
+    >
+      <GenerativeArt seed={seed} parentElement={element} />
     </div>
   );
 };
@@ -387,7 +393,7 @@ const DashboardContent = () => {
 
   return (
     <MintStatusContext.Provider value={mintContextProviderProps}>
-      <div className="w-full md:w-1/2 p-8 bigscreen:p-12 bg-white rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
+      <div className="w-full md:w-1/2 p-6 md:p-8 bigscreen:p-12 bg-white bigscreen:rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
         {!mintInfo ? (
           <ToMintContent />
         ) : (
