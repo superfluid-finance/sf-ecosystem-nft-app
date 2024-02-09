@@ -197,7 +197,8 @@ export const NETWORK_LIST: NFTChain[] = [
   },
 ];
 
-export let TOOLTIP_TEXT = "Explanation of the mechanic";
+export let TOOLTIP_TEXT =
+  "The stream is extended back to 1 month each time someone mints.";
 
 export let FLOW_DURATION = 2629746;
 
