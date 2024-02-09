@@ -23,13 +23,11 @@ const useCountdown = (targetTimestamp: number) => {
   );
 
   useEffect(() => {
-    if (countDownDate > 0) {
-      const interval = setInterval(() => {
-        setCountDown(countDownDate - new Date().getTime());
-      }, 1000);
+    const interval = setInterval(() => {
+      setCountDown(countDownDate - new Date().getTime());
+    }, 1000);
 
-      return () => clearInterval(interval);
-    }
+    return () => clearInterval(interval);
   }, [countDownDate]);
 
   return getReturnValues(countDown);

@@ -83,7 +83,7 @@ const DropdownSelect = () => {
                 : "Stream will be flowing for:"}
             </p>
             {chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil ? (
-              <Timer countdown={countdown} />
+              <Timer countdown={countdown} loading={countdown[0] < 0} />
             ) : (
               <p className="flex gap-x-2 text-sm text-darkgray">N/A</p>
             )}
@@ -189,7 +189,11 @@ const MintInfoBox = () => {
         </p>
         <div className="flex gap-x-2 items-center">
           {lastMintedTimestamp ? (
-            <Timer countdown={countdown} className="!text-black-2" />
+            <Timer
+              countdown={countdown}
+              loading={countdown[0] < 0}
+              className="!text-black-2"
+            />
           ) : (
             <p className="flex gap-x-2 text-sm text-black-2">N/A</p>
           )}
@@ -221,6 +225,7 @@ const UserMintInfoBox = ({
   let countdown = useCountdown(
     (chainMintInfos[mintedChain?.viemChain?.id]?.flowRunsUntil || 0) * 1000,
   );
+
   let lastMintedTimestamp;
 
   if (
@@ -277,7 +282,7 @@ const UserMintInfoBox = ({
             </p>
             <div className="flex gap-x-2 items-center">
               {lastMintedTimestamp ? (
-                <Timer countdown={countdown} />
+                <Timer countdown={countdown} loading={countdown[0] < 0} />
               ) : (
                 <span className="flex gap-x-2 text-sm text-darkgray">N/A</span>
               )}
