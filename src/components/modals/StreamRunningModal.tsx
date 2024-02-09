@@ -27,7 +27,7 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
             />
           </p>
           <span className="text-base text-sm sm:text-md text-sf-green -ml-1">
-            USDCx
+            {streamInfo.tokenSymbol}
           </span>
         </div>
       </div>

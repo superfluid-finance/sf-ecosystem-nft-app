@@ -4,4 +4,5 @@ type StreamInfoType = {
   flowRate: bigint;
   balanceTimestamp: number;
   balance: bigint;
+  tokenSymbol: string;
 };

@@ -45,6 +45,7 @@ export const useGetStreamInfo = () => {
       flowRate: flowRate as bigint,
       balance: balance as bigint,
       balanceTimestamp: balanceTimestamp,
+      tokenSymbol: mintedInfo.mintedChain.gdaInfo?.superTokenSymbol ?? "USDCx",
     });
   }, [wallet?.address]);
 
