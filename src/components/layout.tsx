@@ -83,7 +83,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
                 className="w-[12rem] md:w-[16.375rem]"
               />
 
-              {ready && authenticated && (
+              {ready && authenticated && connectedWallet && (
                 <div className="relative">
                   <LoggedInWallet />
                 </div>

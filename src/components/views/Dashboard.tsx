@@ -48,7 +48,7 @@ const NFTPreview = () => {
   return (
     <div
       id="gen-art-wrapper"
-      className="w-full md:w-1/2 rounded-2xl max-h-[60vh] bigscreen:min-h-[70vh]"
+      className="w-full md:w-1/2 rounded-2xl bigscreen:min-h-[70vh]"
     >
       <GenerativeArt seed={seed} parentElement={element} />
     </div>
@@ -300,11 +300,12 @@ const ToMintContent = () => {
   return (
     <>
       <h1 className="text-md font-bold mb-2 text-[#2E3A47]">
-        Superfluid Ecosystem NFT
+        Superfluid Ecosystem Rewards Pass
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
-        Mint a Superfluid Ecosystem NFT to be a part of the official launch of
-        the General Distribution Agreement!
+        Mint an Ecosystem Rewards Pass to join us celebrating the milestone of
+        launching Streaming Distributions and for future uses across the
+        Superfluid Ecosystem.
       </h2>
 
       <div className="flex flex-col gap-y-5">
@@ -342,8 +343,8 @@ const ClaimStreamContent = () => {
         Claim your Stream!
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
-        Lorem ipsum dolor sit amet consectetur. Pharetra ante eget lacus feugiat
-        orci lorem. Non quam pretium purus aliquet turpis velit.
+        Each Ecosystem Rewards Pass sends a stream back to its minter. Claim
+        your stream below!
       </h2>
 
       <div className="flex flex-col gap-y-5">
@@ -372,11 +373,11 @@ const MintedAndClaimedContent = () => {
   return (
     <>
       <h1 className="text-md font-bold mb-2 text-[#2E3A47]">
-        Lorem ipsum dolor sit amet
+        Superfluid Ecosystem Rewards Pass
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
-        Lorem ipsum dolor sit amet consectetur. Faucibus tellus vitae at duis
-        dui tellus in. Morbi ac tempus quis dolor non ut nulla feugiat.
+        Each Ecosystem Rewards Pass sends a stream back to its minter, see the
+        stream details below.
       </h2>
 
       <div className="flex flex-col gap-y-5">
@@ -401,7 +402,7 @@ const DashboardContent = () => {
 
   return (
     <MintStatusContext.Provider value={mintContextProviderProps}>
-      <div className="w-full md:w-1/2 p-6 md:p-8 bigscreen:p-12 bg-white bigscreen:rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
+      <div className="w-full md:w-1/2 p-6 md:p-8 bigscreen:p-12 bg-white md:rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
         {!mintInfo ? (
           <ToMintContent />
         ) : (

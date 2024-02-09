@@ -66,8 +66,8 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
             Success
           </h4>
           <p className="text-center text-darkgrey mt-[0.2rem]">
-            Lorem ipsum dolor sit amet consectetur. Auctor orci est et bibendum.
-            Metus quis sed tortor tincidunt tellus.
+            Each Ecosystem Rewards Pass sends a stream back to its minter. Claim
+            your stream below!
           </p>
           <div
             id="claim-stream-modal"

@@ -70,8 +70,16 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                 Your stream is running
               </h4>
               <p className="text-center text-darkgrey mt-[0.2rem]">
-                Lorem ipsum dolor sit amet consectetur. Auctor orci est et
-                bibendum. Metus quis sed tortor tincidunt tellus.
+                You can check your streams at any time on the{" "}
+                <a
+                  href="https://app.superfluid.finance"
+                  rel="noreferrer"
+                  className="cursor-pointer underline"
+                  target="_blank"
+                >
+                  Superfluid Dashboard
+                </a>
+                .
               </p>
             </div>
             <div className="rounded-[1.25rem] p-5 bg-white w-fit mx-auto">
