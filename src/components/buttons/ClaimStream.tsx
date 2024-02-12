@@ -1,4 +1,3 @@
-import { usePrivy } from "@privy-io/react-auth";
 import { useCallback, useContext, useState } from "react";
 import { useViemWalletClient } from "../../lib/hooks/useViemWalletClient";
 import { createPublicClient, http } from "viem";
@@ -10,10 +9,10 @@ import {
   REJECTED_TRANSACTION_GENERAL,
 } from "../../lib/dictionary";
 import { LoadingSpinner } from "../common/Loading";
-import { SelectedChainContext } from "../layout";
+import { ConnectedWalletContext, SelectedChainContext } from "../layout";
 
 export const ClaimStreamButton = () => {
-  const { user } = usePrivy();
+  const wallet = useContext(ConnectedWalletContext);
   const viemWalletClient: any = useViemWalletClient({ triggerUpdate: true });
   const mintInfo = useContext(UserMintInfoContext);
   const { selected } = useContext(SelectedChainContext);
@@ -54,13 +53,13 @@ export const ClaimStreamButton = () => {
           ? mintInfo
           : JSON.parse(
               // @ts-ignore
-              window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+              window.localStorage.getItem(`${wallet?.address}_sf`),
             );
 
         let updatedMintInfo = { ...pastMintInfo, claimedStream: true };
         // update mint info
         localStorage.setItem(
-          `${user?.wallet?.address}_sf`,
+          `${wallet?.address}_sf`,
           JSON.stringify(updatedMintInfo),
         );
 
@@ -78,7 +77,7 @@ export const ClaimStreamButton = () => {
 
       setLoading(false);
     }
-  }, [user?.wallet?.address, viemWalletClient, mintInfo]);
+  }, [wallet, viemWalletClient, mintInfo]);
 
   return (
     <div className="flex flex-col gap-y-2">

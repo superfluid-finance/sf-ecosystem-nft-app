@@ -122,6 +122,7 @@ export const NETWORK_LIST: NFTChain[] = [
       gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
       poolAddress: `0xd8d5eC9fb4e35E24587c2a890951440FEd1Ea776`,
       nativeTokenAddress: `0x96B82B65ACF7072eFEb00502F45757F254c2a0D4`,
+      superTokenSymbol: `MATICx`,
     },
   },
   {
@@ -156,6 +157,7 @@ export const NETWORK_LIST: NFTChain[] = [
       gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
       poolAddress: `0x83aE858c954AF90280c42d3Bc41e33fE4e4849e7`,
       nativeTokenAddress: `0xfFD0f6d73ee52c68BF1b01C8AfA2529C97ca17F3`,
+      superTokenSymbol: `AVAXx`,
     },
   },
   {
@@ -195,7 +197,8 @@ export const NETWORK_LIST: NFTChain[] = [
   },
 ];
 
-export let TOOLTIP_TEXT = "Explanation of the mechanic";
+export let TOOLTIP_TEXT =
+  "The stream is extended back to 1 month each time someone mints.";
 
 export let FLOW_DURATION = 2629746;
 

@@ -23,6 +23,7 @@ type ChainGdaAddresses = {
   gdaForwarderV1Address: `0x${string}`;
   poolAddress: `0x${string}`;
   nativeTokenAddress: `0x${string}`;
+  superTokenSymbol: string;
 };
 
 type SelectedChainContextType = {

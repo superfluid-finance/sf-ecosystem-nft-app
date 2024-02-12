@@ -308,6 +308,7 @@ const GenArt = ({
       let width = parentElement?.clientWidth || window.innerWidth;
       let height = parentElement?.clientHeight - 100 || window.innerHeight;
 
+      console.log(parentElement);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
 
@@ -424,7 +425,10 @@ const GenArt = ({
 
   return (
     <div className="w-full h-full">
-      <canvas className="w-full h-full object-cover" ref={canvasRef}></canvas>
+      <canvas
+        className="w-full h-[50vh] md:h-full object-cover rounded-t-2xl md:rounded-b-2xl"
+        ref={canvasRef}
+      ></canvas>
     </div>
   );
 };

@@ -12,7 +12,6 @@ import {
 } from "../layout";
 import { CallToAction } from "../buttons/CallToAction";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
-import { usePrivy } from "@privy-io/react-auth";
 import { SwitchNetwork } from "../buttons/SwitchNetwork";
 import { StreamInfo } from "../modals/StreamRunningModal";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
@@ -29,24 +28,29 @@ export const MintStatusContext = createContext<{
 /** Preview image of the NFT */
 const NFTPreview = () => {
   let [seed, setSeed] = useState<number>();
-  const { user } = usePrivy();
   const wallet = useContext(ConnectedWalletContext);
+  const [element, setElement] = useState<Element>();
 
   useEffect(() => {
-    if (wallet && window.localStorage.getItem(`${user?.wallet?.address}_sf`)) {
+    if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
       let mintStatus = JSON.parse(
         // @ts-ignore
-        window.localStorage.getItem(`${user?.wallet?.address}_sf`),
+        window.localStorage.getItem(`${wallet?.address}_sf`),
       );
       setSeed(mintStatus?.tokenSeed ?? null);
     } else {
       setSeed(undefined);
     }
+
+    setElement(document.querySelector("#gen-art-wrapper")!);
   }, [wallet]);
 
   return (
-    <div className="w-full md:w-1/2 rounded-2xl min-h-[70vh]">
-      <GenerativeArt seed={seed} />
+    <div
+      id="gen-art-wrapper"
+      className="w-full md:w-1/2 rounded-2xl bigscreen:min-h-[70vh]"
+    >
+      <GenerativeArt seed={seed} parentElement={element} />
     </div>
   );
 };
@@ -62,7 +66,7 @@ const DropdownSelect = () => {
 
   const Option = ({ chainInfo }: { chainInfo: NFTChain }) => {
     let countdown = useCountdown(
-      (chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil || 0) * 1000,
+      (chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil ?? 0) * 1000,
     );
 
     return (
@@ -74,10 +78,12 @@ const DropdownSelect = () => {
 
           <div className="w-full flex justify-between items-center">
             <p className="font-medium text-sm text-darkgray">
-              Stream will be flowing for:
+              {window.innerWidth <= 568
+                ? "Stream flows for:"
+                : "Stream will be flowing for:"}
             </p>
             {chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil ? (
-              <Timer countdown={countdown} />
+              <Timer countdown={countdown} loading={countdown[0] < 0} />
             ) : (
               <p className="flex gap-x-2 text-sm text-darkgray">N/A</p>
             )}
@@ -176,10 +182,18 @@ const MintInfoBox = () => {
         </p>
       </div>
       <div className="w-full text-sm flex justify-between items-center">
-        <p className="text-darkgray">Stream will be flowing for:</p>
+        <p className="text-darkgray">
+          {window.innerWidth <= 568
+            ? "Stream flows for:"
+            : "Stream will be flowing for:"}
+        </p>
         <div className="flex gap-x-2 items-center">
           {lastMintedTimestamp ? (
-            <Timer countdown={countdown} className="!text-black-2" />
+            <Timer
+              countdown={countdown}
+              loading={countdown[0] < 0}
+              className="!text-black-2"
+            />
           ) : (
             <p className="flex gap-x-2 text-sm text-black-2">N/A</p>
           )}
@@ -211,6 +225,7 @@ const UserMintInfoBox = ({
   let countdown = useCountdown(
     (chainMintInfos[mintedChain?.viemChain?.id]?.flowRunsUntil || 0) * 1000,
   );
+
   let lastMintedTimestamp;
 
   if (
@@ -261,11 +276,13 @@ const UserMintInfoBox = ({
           </div>
           <div className="w-full flex justify-between items-center">
             <p className="font-medium text-sm text-darkgray">
-              Stream will be flowing for:
+              {window.innerWidth <= 568
+                ? "Stream flows for:"
+                : "Stream will be flowing for:"}
             </p>
             <div className="flex gap-x-2 items-center">
               {lastMintedTimestamp ? (
-                <Timer countdown={countdown} />
+                <Timer countdown={countdown} loading={countdown[0] < 0} />
               ) : (
                 <span className="flex gap-x-2 text-sm text-darkgray">N/A</span>
               )}
@@ -288,11 +305,12 @@ const ToMintContent = () => {
   return (
     <>
       <h1 className="text-md font-bold mb-2 text-[#2E3A47]">
-        Superfluid Ecosystem NFT
+        Superfluid Ecosystem Rewards Pass
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
-        Mint a Superfluid Ecosystem NFT to be a part of the official launch of
-        the General Distribution Agreement!
+        Mint an Ecosystem Rewards Pass to join us celebrating the milestone of
+        launching Streaming Distributions and for future uses across the
+        Superfluid Ecosystem.
       </h2>
 
       <div className="flex flex-col gap-y-5">
@@ -330,8 +348,8 @@ const ClaimStreamContent = () => {
         Claim your Stream!
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
-        Lorem ipsum dolor sit amet consectetur. Pharetra ante eget lacus feugiat
-        orci lorem. Non quam pretium purus aliquet turpis velit.
+        Each Ecosystem Rewards Pass sends a stream back to its minter. Claim
+        your stream below!
       </h2>
 
       <div className="flex flex-col gap-y-5">
@@ -360,11 +378,11 @@ const MintedAndClaimedContent = () => {
   return (
     <>
       <h1 className="text-md font-bold mb-2 text-[#2E3A47]">
-        Lorem ipsum dolor sit amet
+        Superfluid Ecosystem Rewards Pass
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
-        Lorem ipsum dolor sit amet consectetur. Faucibus tellus vitae at duis
-        dui tellus in. Morbi ac tempus quis dolor non ut nulla feugiat.
+        Each Ecosystem Rewards Pass sends a stream back to its minter, see the
+        stream details below.
       </h2>
 
       <div className="flex flex-col gap-y-5">
@@ -389,7 +407,7 @@ const DashboardContent = () => {
 
   return (
     <MintStatusContext.Provider value={mintContextProviderProps}>
-      <div className="w-full md:w-1/2 p-8 bigscreen:p-12 bg-white rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
+      <div className="w-full md:w-1/2 p-6 md:p-8 bigscreen:p-12 bg-white md:rounded-tr-2xl rounded-bl-2xl md:rounded-bl-0 rounded-br-2xl flex flex-col">
         {!mintInfo ? (
           <ToMintContent />
         ) : (
