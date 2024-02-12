@@ -79,7 +79,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                 <a
                   href="https://app.superfluid.finance"
                   rel="noreferrer"
-                  className="cursor-pointer underline"
+                  className="cursor-pointer underline text-sf-green"
                   target="_blank"
                 >
                   Superfluid Dashboard

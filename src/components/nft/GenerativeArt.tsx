@@ -308,7 +308,6 @@ const GenArt = ({
       let width = parentElement?.clientWidth || window.innerWidth;
       let height = parentElement?.clientHeight - 100 || window.innerHeight;
 
-      console.log(parentElement);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
 
