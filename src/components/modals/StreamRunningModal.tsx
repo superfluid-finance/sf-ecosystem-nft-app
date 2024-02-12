@@ -17,9 +17,12 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
         Total amount streamed
       </span>
       <div className="flex flex-row gap-x-2 items-center">
-        <img src={USDCx} className="w-5 h-5 md:w-8 md:h-8" />
-        <div className="font-medium text-[24px] sm:text-[2rem] bigscreen:text-lg leading-[1] flex gap-x-2 items-end">
-          <p className="w-[10.5rem] sm:w-[14rem] bigscreen:w-[18.5rem]">
+        <img src={USDCx} className="w-5 h-5 sm:w-8 sm:h-8" />
+        <div className="font-medium text-[22px] sm:text-[2rem] bigscreen:text-[38px] leading-[1] flex gap-x-2 items-end">
+          <p
+            className="w-[10.8rem] mt-1 sm:w-[16rem] bigscreen:w-[18.9rem]"
+            style={{ fontVariantNumeric: "tabular-nums" }}
+          >
             <FlowingBalance
               startingBalance={streamInfo?.balance}
               startingBalanceDate={
@@ -28,7 +31,7 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
               flowRate={streamInfo?.flowRate}
             />
           </p>
-          <span className="text-base text-sm sm:text-md text-sf-green -ml-1">
+          <span className="text-base text-sm sm:text-md text-sf-green -mt-4">
             {streamInfo.tokenSymbol}
           </span>
         </div>
