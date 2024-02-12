@@ -1,5 +1,4 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { usePrivy } from "@privy-io/react-auth";
 import { useRetrieveBalance } from "../../lib/hooks/useRetrieveBalance";
 import { ConnectedWalletContext, SelectedChainContext } from "../layout";
 import { ClaimStreamModal } from "../modals/ClaimStreamModal";
@@ -13,7 +12,6 @@ import {
 } from "../../lib/dictionary";
 
 export const Mint = () => {
-  const { user } = usePrivy();
   const userBalance = useRetrieveBalance();
   const wallet = useContext(ConnectedWalletContext);
   const [loading, setLoading] = useState<boolean>(false);

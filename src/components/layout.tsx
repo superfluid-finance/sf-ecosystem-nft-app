@@ -1,10 +1,4 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import SuperFluidLogo from "../assets/superfluid-logo.svg";
 import BackgroundImage from "../assets/bg.png";
 import { usePrivy, useWallets, ConnectedWallet } from "@privy-io/react-auth";
