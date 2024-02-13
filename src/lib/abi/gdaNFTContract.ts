@@ -136,6 +136,13 @@ export const gdaNftContractAbi = [
   },
   {
     inputs: [{ internalType: "uint256", name: "_tokenId", type: "uint256" }],
+    name: "calcHash",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_tokenId", type: "uint256" }],
     name: "calcURI",
     outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
@@ -170,6 +177,13 @@ export const gdaNftContractAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "ipfsURI",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "owner", type: "address" },
       { internalType: "address", name: "operator", type: "address" },
@@ -183,6 +197,13 @@ export const gdaNftContractAbi = [
     inputs: [],
     name: "lastMintTimestamp",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    name: "minter",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -287,6 +308,13 @@ export const gdaNftContractAbi = [
       { internalType: "bool", name: "approved", type: "bool" },
     ],
     name: "setApprovalForAll",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "_ipfsuri", type: "string" }],
+    name: "setIPFSURI",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

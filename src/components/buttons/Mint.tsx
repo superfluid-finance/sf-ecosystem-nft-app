@@ -52,7 +52,7 @@ export const Mint = () => {
         let seed: any = await publicClient.readContract({
           address: selected.gdaInfo?.nftContractAddress as `0x${string}`,
           abi: gdaNftContractAbi,
-          functionName: "calcURI",
+          functionName: "calcHash",
           args: [mintResult[1]],
         });
 
@@ -61,7 +61,7 @@ export const Mint = () => {
           tokenId: Number(mintResult[1]),
           timestamp: Number(mintResult[2]),
           claimedStream: false,
-          tokenSeed: Number(seed.split("seed=")[1]),
+          tokenSeed: Number(seed),
         };
 
         // store this in local storage for easier retrieval
