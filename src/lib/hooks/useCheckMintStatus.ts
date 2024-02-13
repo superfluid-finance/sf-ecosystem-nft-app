@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { NETWORK_LIST } from "../default";
+import { NETWORK_LIST, VERSION } from "../default";
 import { createPublicClient, getContract, http } from "viem";
 import { UserMintInfo } from "../types/user";
 import { gdaForwarderV1Abi } from "../abi/gdaForwarderV1";
@@ -70,7 +70,7 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
 
           // store this in local storage for easier retrieval
           localStorage.setItem(
-            `${wallet?.address}_sf`,
+            `${wallet?.address}_sf_${VERSION}`,
             JSON.stringify(userMintObj),
           );
 
@@ -107,7 +107,7 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
         let newMintStatus = { ...mintStatus, claimedStream: true };
         setUserMintInfo(newMintStatus);
         localStorage.setItem(
-          `${wallet?.address}_sf`,
+          `${wallet?.address}_sf_${VERSION}`,
           JSON.stringify(newMintStatus),
         );
       } else {
@@ -118,10 +118,13 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
   );
 
   useEffect(() => {
-    if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
+    if (
+      wallet &&
+      window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`)
+    ) {
       let mintStatus = JSON.parse(
         // @ts-ignore
-        window.localStorage.getItem(`${wallet?.address}_sf`),
+        window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
       );
 
       // if last retrieved info has not been connected to pool, check the status
@@ -129,7 +132,9 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
         checkClaimedStreamStatus(mintStatus);
       } else {
         setUserMintInfo(
-          JSON.parse(window.localStorage.getItem(`${wallet?.address}_sf`)!),
+          JSON.parse(
+            window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`)!,
+          ) as UserMintInfo,
         );
       }
     } else if (wallet) {

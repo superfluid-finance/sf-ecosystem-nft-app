@@ -10,6 +10,7 @@ import {
 } from "../../lib/dictionary";
 import { LoadingSpinner } from "../common/Loading";
 import { ConnectedWalletContext, SelectedChainContext } from "../layout";
+import { VERSION } from "../../lib/default";
 
 export const ClaimStreamButton = () => {
   const wallet = useContext(ConnectedWalletContext);
@@ -53,7 +54,7 @@ export const ClaimStreamButton = () => {
           ? mintInfo
           : JSON.parse(
               // @ts-ignore
-              window.localStorage.getItem(`${wallet?.address}_sf`),
+              window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
             );
 
         let updatedMintInfo = { ...pastMintInfo, claimedStream: true };

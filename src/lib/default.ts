@@ -12,6 +12,14 @@ import {
 import { NFTChain } from "./types/chain";
 import { defineChain, formatEther } from "viem";
 
+/** Used to differentiate versions between deployments, as
+ * we are retrieving data from local store for faster access
+ * and if a new contract is deployed the minters from previous deployments
+ * mint status should be reset; without having users to
+ * manually clear their browser cache.
+ */
+export const VERSION = 2;
+
 /** Custom chains, using our own Alchemy RPC  */
 export const mumbai = defineChain({
   id: 80_001,

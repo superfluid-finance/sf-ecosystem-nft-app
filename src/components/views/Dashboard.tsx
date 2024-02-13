@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { NETWORK_LIST, TOOLTIP_TEXT } from "../../lib/default";
+import { NETWORK_LIST, TOOLTIP_TEXT, VERSION } from "../../lib/default";
 import { useCountdown } from "../../lib/hooks/useCountdown";
 import { Timer } from "../common/Timer";
 import { DropdownArrow } from "../../assets/dropdown-arrow";
@@ -32,10 +32,13 @@ const NFTPreview = () => {
   const [element, setElement] = useState<Element>();
 
   useEffect(() => {
-    if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
+    if (
+      wallet &&
+      window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`)
+    ) {
       let mintStatus = JSON.parse(
         // @ts-ignore
-        window.localStorage.getItem(`${wallet?.address}_sf`),
+        window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
       );
       setSeed(mintStatus?.tokenSeed ?? null);
     } else {

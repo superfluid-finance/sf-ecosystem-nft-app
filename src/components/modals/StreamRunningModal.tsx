@@ -5,6 +5,7 @@ import FlowingBalance from "../amount/FlowingBalance";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { useContext } from "react";
 import { MintStatusContext } from "../views/Dashboard";
+import { TwitterShareButton } from "react-share";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -90,15 +91,28 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
             <div className="rounded-[1.25rem] p-5 bg-white w-fit mx-auto">
               <StreamInfo streamInfo={streamInfo!} />
             </div>
-            <button
+            <div
               className="cursor-pointer w-full bg-sf-green active:border-transparent active:outline-none focus:border-transparent focus:outline-none hover:border-transparent hover:outline-none rounded-[0.625rem] font-medium text-white"
               onClick={() => {
                 setUpdate(true);
                 setModalOpen(false);
               }}
             >
-              Close
-            </button>
+              <TwitterShareButton
+                title="I minted Ecosystem Reward Pass from @Superfluid_HQ. Checkout my stream here "
+                url="https://app.superfluid.finance/stream/polygon-mumbai/0x9a0acc6e3521d05a5537ee7c7d4fadb11281d175ecf6c62a05b81071fb03fd8e-5"
+              >
+                <span>
+                  Share on{" "}
+                  <img
+                    src="/x-logo.svg"
+                    width={4}
+                    height={4}
+                    className="inline-block"
+                  ></img>
+                </span>
+              </TwitterShareButton>
+            </div>
           </div>
         </div>
       </div>

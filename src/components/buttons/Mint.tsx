@@ -10,6 +10,7 @@ import {
   INSUFFICIENT_BALANCE,
   REJECTED_TRANSACTION_MINT,
 } from "../../lib/dictionary";
+import { VERSION } from "../../lib/default";
 
 export const Mint = () => {
   const userBalance = useRetrieveBalance();
@@ -66,7 +67,7 @@ export const Mint = () => {
 
         // store this in local storage for easier retrieval
         localStorage.setItem(
-          `${wallet?.address}_sf`,
+          `${wallet?.address}_sf_${VERSION}`,
           JSON.stringify(userMintObj),
         );
 

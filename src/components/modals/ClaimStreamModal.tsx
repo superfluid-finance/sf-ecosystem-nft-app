@@ -4,6 +4,7 @@ import { MintStatusContext } from "../views/Dashboard";
 import { useContext, useEffect, useState } from "react";
 import { GenerativeArt } from "../nft/GenerativeArt";
 import { ConnectedWalletContext } from "../layout";
+import { VERSION } from "../../lib/default";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -23,10 +24,13 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
     let [seed, setSeed] = useState<number>(0);
 
     useEffect(() => {
-      if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
+      if (
+        wallet &&
+        window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`)
+      ) {
         let mintStatus = JSON.parse(
           // @ts-ignore
-          window.localStorage.getItem(`${wallet?.address}_sf`),
+          window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
         );
 
         setSeed(mintStatus.tokenSeed);
