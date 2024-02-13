@@ -13,11 +13,12 @@ import {
 import { CallToAction } from "../buttons/CallToAction";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { SwitchNetwork } from "../buttons/SwitchNetwork";
-import { StreamInfo } from "../modals/StreamRunningModal";
+import { StreamInfo, StreamRunningModal } from "../modals/StreamRunningModal";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 import { UserMintInfo } from "../../lib/types/user";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { GenerativeArt } from "../nft/GenerativeArt";
+import { ClaimStreamModal } from "../modals/ClaimStreamModal";
 
 export const UserMintInfoContext = createContext<UserMintInfo>(null!);
 export const MintStatusContext = createContext<{
