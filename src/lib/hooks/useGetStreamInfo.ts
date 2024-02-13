@@ -4,6 +4,7 @@ import { createPublicClient, erc20Abi, getContract, http } from "viem";
 import { superfluidPoolAbi } from "../abi/superfluidPool";
 import { UserMintInfo } from "../types/user";
 import { ConnectedWalletContext } from "../../components/layout";
+import { VERSION } from "../default";
 
 export const useGetStreamInfo = () => {
   const [streamInfo, setStreamInfo] = useState<StreamInfoType>();
@@ -12,7 +13,7 @@ export const useGetStreamInfo = () => {
   const getStreamInfo = useCallback(async () => {
     let mintedInfo: UserMintInfo = JSON.parse(
       // @ts-ignore
-      localStorage.getItem(wallet?.address + "_sf"),
+      localStorage.getItem(wallet?.address + "_sf_" + VERSION),
     );
 
     let publicClient = createPublicClient({

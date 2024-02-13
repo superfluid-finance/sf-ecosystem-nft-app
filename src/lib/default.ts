@@ -12,6 +12,14 @@ import {
 import { NFTChain } from "./types/chain";
 import { defineChain, formatEther } from "viem";
 
+/** Used to differentiate versions between deployments, as
+ * we are retrieving data from local store for faster access
+ * and if a new contract is deployed the minters from previous deployments
+ * mint status should be reset; without having users to
+ * manually clear their browser cache.
+ */
+export const VERSION = 2;
+
 /** Custom chains, using our own Alchemy RPC  */
 export const mumbai = defineChain({
   id: 80_001,
@@ -118,9 +126,9 @@ export const NETWORK_LIST: NFTChain[] = [
     price: formatEther(10000000000000000 as unknown as bigint),
     viemChain: mumbai,
     gdaInfo: {
-      nftContractAddress: "0x83a0370216cd9a9199edf5a4bbd5f0a2842da3ff",
+      nftContractAddress: "0x511b730d0a99FED54B8211E69Ddc19755aac93ce",
       gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
-      poolAddress: `0xd8d5eC9fb4e35E24587c2a890951440FEd1Ea776`,
+      poolAddress: `0xa9de31c480B60451BB1Af97B7813007697983837`,
       nativeTokenAddress: `0x96B82B65ACF7072eFEb00502F45757F254c2a0D4`,
       superTokenSymbol: `MATICx`,
     },
@@ -153,9 +161,9 @@ export const NETWORK_LIST: NFTChain[] = [
     price: 0.01,
     viemChain: avalancheFuji,
     gdaInfo: {
-      nftContractAddress: "0xD34696Bb3a71FF35D8F7081734290A97a32A82B5",
+      nftContractAddress: "0x23637e56c04D20c197D51b8b3C9bA4735ed90c5C",
       gdaForwarderV1Address: `0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08`,
-      poolAddress: `0x83aE858c954AF90280c42d3Bc41e33fE4e4849e7`,
+      poolAddress: `0x8c9D05695A4602456C0A97a68C2168c87659a41D`,
       nativeTokenAddress: `0xfFD0f6d73ee52c68BF1b01C8AfA2529C97ca17F3`,
       superTokenSymbol: `AVAXx`,
     },

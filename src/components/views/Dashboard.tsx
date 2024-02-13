@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { NETWORK_LIST, TOOLTIP_TEXT } from "../../lib/default";
+import { NETWORK_LIST, TOOLTIP_TEXT, VERSION } from "../../lib/default";
 import { useCountdown } from "../../lib/hooks/useCountdown";
 import { Timer } from "../common/Timer";
 import { DropdownArrow } from "../../assets/dropdown-arrow";
@@ -13,11 +13,12 @@ import {
 import { CallToAction } from "../buttons/CallToAction";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { SwitchNetwork } from "../buttons/SwitchNetwork";
-import { StreamInfo } from "../modals/StreamRunningModal";
+import { StreamInfo, StreamRunningModal } from "../modals/StreamRunningModal";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 import { UserMintInfo } from "../../lib/types/user";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { GenerativeArt } from "../nft/GenerativeArt";
+import { ClaimStreamModal } from "../modals/ClaimStreamModal";
 
 export const UserMintInfoContext = createContext<UserMintInfo>(null!);
 export const MintStatusContext = createContext<{
@@ -32,10 +33,13 @@ const NFTPreview = () => {
   const [element, setElement] = useState<Element>();
 
   useEffect(() => {
-    if (wallet && window.localStorage.getItem(`${wallet?.address}_sf`)) {
+    if (
+      wallet &&
+      window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`)
+    ) {
       let mintStatus = JSON.parse(
         // @ts-ignore
-        window.localStorage.getItem(`${wallet?.address}_sf`),
+        window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
       );
       setSeed(mintStatus?.tokenSeed ?? null);
     } else {
