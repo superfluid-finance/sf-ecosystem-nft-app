@@ -71,7 +71,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
         <SelectedChainContext.Provider value={{ selected, setSelected }}>
           <div className="relative w-screen bigscreen:overflow-hidden bg-[#EAEFF4] min-h-screen">
             <Background />
-            <header className="fixed top-0 left-0 w-full pl-2 md:pl-0 pr-8 py-2 z-[11] flex justify-between items-center backdrop-blur-md md:backdrop-none">
+            <header className="fixed top-0 left-0 w-full pl-2 md:pl-0 pr-8 py-2 z-[11] flex justify-between items-center bg-[#EAEFF4] md:bg-transparent">
               <img
                 src={SuperFluidLogo}
                 className="w-[12rem] md:w-[16.375rem]"
