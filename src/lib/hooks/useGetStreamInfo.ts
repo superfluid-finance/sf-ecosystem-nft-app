@@ -47,6 +47,7 @@ export const useGetStreamInfo = () => {
       balance: balance as bigint,
       balanceTimestamp: balanceTimestamp,
       tokenSymbol: mintedInfo.mintedChain.gdaInfo?.superTokenSymbol ?? "USDCx",
+      chain: mintedInfo.mintedChain.name,
     });
   }, [wallet?.address]);
 
