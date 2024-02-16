@@ -312,8 +312,8 @@ const ToMintContent = () => {
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
         Mint an Ecosystem Rewards Pass to join us celebrating the milestone of
-        launching Streaming Distributions and for future uses across the
-        Superfluid Ecosystem.
+        launching Distribution Pools and for future uses across the Superfluid
+        Ecosystem.
       </h2>
 
       <div className="flex flex-col gap-y-5">

@@ -6,6 +6,7 @@ import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { useContext } from "react";
 import { MintStatusContext } from "../views/Dashboard";
 import { TwitterShareButton } from "react-share";
+import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -44,6 +45,7 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
 export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   const streamInfo = useGetStreamInfo();
   const { setUpdate } = useContext(MintStatusContext);
+  const userMintInfo = useCheckMintStatus();
 
   const GreyOverlay = () => {
     return (
@@ -102,8 +104,8 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                 }}
               >
                 <TwitterShareButton
-                  title="I minted Ecosystem Reward Pass from @Superfluid_HQ. Checkout my stream here "
-                  url="https://app.superfluid.finance/stream/polygon-mumbai/0x9a0acc6e3521d05a5537ee7c7d4fadb11281d175ecf6c62a05b81071fb03fd8e-5"
+                  title={`I minted my @Superfluid_HQ Ecosystem Rewards Pass on ${streamInfo.chain}.\n\n1 Stream → Unlimited recipients.\nEvery minter gets a fraction of the Biggest stream ever. We're currently at ${(userMintInfo?.tokenId || 0) + 1} recipient${userMintInfo?.tokenId && userMintInfo.tokenId + 1 > 1 ? "s" : ""}.`}
+                  url="mint.superfluid.finance"
                 >
                   <span className="flex gap-x-2 items-center">
                     Share on{" "}
