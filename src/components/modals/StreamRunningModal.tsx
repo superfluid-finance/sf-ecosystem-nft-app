@@ -104,7 +104,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                 }}
               >
                 <TwitterShareButton
-                  title={`I minted my @Superfluid_HQ Ecosystem Rewards Pass on ${streamInfo.chain}.\n\n1 Stream → Unlimited recipients.\nEvery minter gets a fraction of the Biggest stream ever. We're currently at ${userMintInfo?.tokenId} recipient${userMintInfo?.tokenId && userMintInfo.tokenId > 1 ? "s" : ""}.`}
+                  title={`I minted my @Superfluid_HQ Ecosystem Rewards Pass on ${streamInfo.chain}.\n\n1 Stream → Unlimited recipients.\nEvery minter gets a fraction of the Biggest stream ever. We're currently at ${(userMintInfo?.tokenId || 0) + 1} recipient${userMintInfo?.tokenId && userMintInfo.tokenId + 1 > 1 ? "s" : ""}.`}
                   url="mint.superfluid.finance"
                 >
                   <span className="flex gap-x-2 items-center">
