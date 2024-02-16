@@ -110,29 +110,6 @@ export const getDecimalPlacesToRoundTo = (value: Decimal): number => {
   return 18;
 };
 
-export function PRNG(modulo: number, salt: number, seed: number): number {
-  let str =
-    Number(
-      `${((2 ** 31 - 1) & Math.imul(48271, seed / salt)) / 2 ** 31}`
-        .split("")
-        .slice(-10)
-        .join(""),
-    ) % modulo;
-
-  return str;
-}
-
-// change this to affect the points for Generative Art
-// between 0 and 1
-export const generateSeeds = (length: number) => {
-  let result: any = [[], []];
-  for (let i = 0; i < length; i++) {
-    result[0][i] = (PRNG(10, i, 100) / 10).toString();
-    result[1][i] = (PRNG(10, 100 + i, 100) / 10).toString();
-  }
-  return result;
-};
-
 export const absoluteValue = (n: bigint) => {
   return n >= 0 ? n : -n;
 };
