@@ -6,7 +6,6 @@ import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { useContext } from "react";
 import { MintStatusContext } from "../views/Dashboard";
 import { TwitterShareButton } from "react-share";
-import { useGetChainMintInfos } from "../../lib/hooks/useGetChainMintInfos";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 
 type ClaimStreamModalProps = {
