@@ -85,16 +85,19 @@ const DropdownSelect = () => {
                 ? "Stream flows for:"
                 : "Stream will be flowing for:"}
             </p>
-            {chainMintInfos[chainInfo.viemChain.id]?.flowRunsUntil ? (
-              <Timer countdown={countdown} loading={countdown[0] < 0} />
-            ) : (
-              <p className="flex gap-x-2 text-sm text-darkgray">N/A</p>
-            )}
+            <Timer
+              countdown={countdown}
+              loading={
+                countdown[0] < 0 || !chainMintInfos[chainInfo.viemChain.id]
+              }
+            />
           </div>
 
           <div className="w-full flex justify-between items-center">
             <p className="font-medium text-sm text-darkgray">Minted</p>
-            <p className="text-sm text-darkgray">
+            <p
+              className={`text-sm text-darkgray ${!chainMintInfos[chainInfo.viemChain.id] ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+            >
               {chainMintInfos[chainInfo.viemChain.id]?.mintedCount || 0}
             </p>
           </div>
@@ -172,14 +175,19 @@ const MintInfoBox = () => {
     <div className="dropdown-boxshadow p-5 rounded-[0.625rem] font-medium w-full flex flex-col gap-y-2.5">
       <div className="w-full text-sm flex justify-between items-center">
         <p className="text-darkgray">NFTs Minted:</p>
-        <p className="text-black-2">
+        <p
+          className={`text-black-2 ${!chainMintInfos[selected.viemChain.id] ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+        >
           {chainMintInfos[selected.viemChain.id]?.mintedCount ?? 0}
         </p>
       </div>
       <div className="w-full text-sm flex justify-between items-center">
         <p className="text-darkgray">Last Mint:</p>
-        <p className="text-black-2">
-          {lastMintedTimestamp
+        <p
+          className={`text-black-2 ${!chainMintInfos[selected.viemChain.id] ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+        >
+          {chainMintInfos[selected.viemChain.id]?.mintedCount > 0 &&
+          lastMintedTimestamp
             ? new Date(lastMintedTimestamp).toDateString()
             : "N/A"}
         </p>
@@ -191,15 +199,11 @@ const MintInfoBox = () => {
             : "Stream will be flowing for:"}
         </p>
         <div className="flex gap-x-2 items-center">
-          {lastMintedTimestamp ? (
-            <Timer
-              countdown={countdown}
-              loading={countdown[0] < 0}
-              className="!text-black-2"
-            />
-          ) : (
-            <p className="flex gap-x-2 text-sm text-black-2">N/A</p>
-          )}
+          <Timer
+            countdown={countdown}
+            loading={countdown[0] < 0 || !chainMintInfos[selected.viemChain.id]}
+            className="!text-black-2"
+          />
           <div className="tooltip cursor-pointer">
             <img src={InfoIcon} />
             <span className="tooltiptext p-2 bg-white">{TOOLTIP_TEXT}</span>
@@ -253,7 +257,9 @@ const UserMintInfoBox = ({
       {!includesDetailedInfo ? (
         <div className="w-full text-sm flex justify-between items-center">
           <p className="text-darkgray">Your Mint:</p>
-          <p className="text-black-2">
+          <p
+            className={`text-black-2 ${!timestamp ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+          >
             {new Date(timestamp * 1000).toDateString()}
           </p>
         </div>
@@ -261,17 +267,25 @@ const UserMintInfoBox = ({
         <>
           <div className="w-full text-sm flex justify-between items-center">
             <p className="text-darkgray">Your NFT:</p>
-            <p className="text-black-2"># {tokenId}</p>
+            <p
+              className={`text-black-2 ${!tokenId ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+            >
+              # {tokenId}
+            </p>
           </div>
           <div className="w-full text-sm flex justify-between items-center">
             <p className="text-darkgray">NFTs Minted:</p>
-            <p className="text-black-2">
+            <p
+              className={`text-black-2 ${!chainMintInfos[mintedChain?.viemChain?.id] ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+            >
               {chainMintInfos[mintedChain?.viemChain?.id]?.mintedCount || 0}
             </p>
           </div>
           <div className="w-full text-sm flex justify-between items-center">
             <p className="text-darkgray">Last Mint:</p>
-            <p className="text-black-2">
+            <p
+              className={`text-black-2 ${!lastMintedTimestamp ? "shimmer-bg animate-pulse bg-gray-300 blur-sm" : ""}`}
+            >
               {lastMintedTimestamp
                 ? new Date(lastMintedTimestamp * 1000).toDateString()
                 : "N/A"}
@@ -284,11 +298,10 @@ const UserMintInfoBox = ({
                 : "Stream will be flowing for:"}
             </p>
             <div className="flex gap-x-2 items-center">
-              {lastMintedTimestamp ? (
-                <Timer countdown={countdown} loading={countdown[0] < 0} />
-              ) : (
-                <span className="flex gap-x-2 text-sm text-darkgray">N/A</span>
-              )}
+              <Timer
+                countdown={countdown}
+                loading={countdown[0] < 0 || !lastMintedTimestamp}
+              />
               <div className="tooltip cursor-pointer">
                 <img src={InfoIcon} />
                 <span className="tooltiptext p-2 bg-white">{TOOLTIP_TEXT}</span>
