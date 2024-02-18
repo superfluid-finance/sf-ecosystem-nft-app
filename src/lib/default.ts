@@ -200,7 +200,7 @@ export const NETWORK_LIST: NFTChain[] = [
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
-      poolAddress: "0x8987BAA491Ae9738Fe99A4D2D267d5f189f8128e", // need to verify
+      poolAddress: "0x75a7013C0Ccd50C7624a0e5F05B2a9FfF82d126C",
       nativeTokenAddress: "0x671425Ae1f272Bc6F79beC3ed5C4b00e9c628240",
       superTokenSymbol: `CELOx`,
     },

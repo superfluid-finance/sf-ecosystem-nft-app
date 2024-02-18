@@ -14,7 +14,7 @@ import {
 } from "viem/chains";
 import { Layout } from "./components/layout";
 import { Dashboard } from "./components/views/Dashboard";
-import { mumbai, sepolia, avalancheFuji } from "./lib/default";
+import { mumbai, avalancheFuji } from "./lib/default";
 
 const privyConfig: PrivyClientConfig = {
   loginMethods: ["wallet"],
@@ -32,7 +32,6 @@ const privyConfig: PrivyClientConfig = {
   defaultChain: mumbai,
   supportedChains: [
     mumbai,
-    sepolia,
     avalancheFuji,
     bsc,
     polygon,

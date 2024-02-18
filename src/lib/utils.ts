@@ -11,7 +11,7 @@ import {
   polygon,
   scroll,
 } from "viem/chains";
-import { mumbai, sepolia, avalancheFuji } from "./default";
+import { mumbai, avalancheFuji } from "./default";
 import Decimal from "decimal.js";
 
 export const truncateAddress = (address: string) => {
@@ -54,9 +54,6 @@ export const viemChainLookupById = (id: number) => {
       break;
     case 80001:
       chain = mumbai;
-      break;
-    case 11155111:
-      chain = sepolia;
       break;
     case 43113:
       chain = avalancheFuji;
