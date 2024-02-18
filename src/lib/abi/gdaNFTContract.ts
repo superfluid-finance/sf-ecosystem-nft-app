@@ -118,6 +118,32 @@ export const gdaNftContractAbi = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "string",
+        name: "newURI",
+        type: "string",
+      },
+    ],
+    name: "ipfsURIUpdated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint96",
+        name: "newPrice",
+        type: "uint96",
+      },
+    ],
+    name: "priceUpdated",
+    type: "event",
+  },
+  {
     inputs: [
       { internalType: "address", name: "to", type: "address" },
       { internalType: "uint256", name: "tokenId", type: "uint256" },
@@ -245,24 +271,6 @@ export const gdaNftContractAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "poolConfig",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "transferabilityForUnitsOwner",
-        type: "bool",
-      },
-      {
-        internalType: "bool",
-        name: "distributionFromAnyAddress",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "address", name: "to", type: "address" },
       { internalType: "uint256", name: "amount", type: "uint256" },
@@ -315,6 +323,13 @@ export const gdaNftContractAbi = [
   {
     inputs: [{ internalType: "string", name: "_ipfsuri", type: "string" }],
     name: "setIPFSURI",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint96", name: "_tokenPrice", type: "uint96" }],
+    name: "setTokenPrice",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -376,7 +391,6 @@ export const gdaNftContractAbi = [
     inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "userMint",
     outputs: [
-      { internalType: "address", name: "to", type: "address" },
       { internalType: "uint256", name: "tokenId", type: "uint256" },
       { internalType: "uint256", name: "timestamp", type: "uint256" },
     ],
