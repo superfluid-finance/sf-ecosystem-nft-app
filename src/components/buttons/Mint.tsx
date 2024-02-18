@@ -59,8 +59,8 @@ export const Mint = () => {
 
         let userMintObj = {
           mintedChain: selected,
-          tokenId: Number(mintResult[1]),
-          timestamp: Number(mintResult[2]),
+          tokenId: Number(mintResult[0]),
+          timestamp: Number(mintResult[1]),
           claimedStream: false,
           tokenSeed: Number(seed),
         };

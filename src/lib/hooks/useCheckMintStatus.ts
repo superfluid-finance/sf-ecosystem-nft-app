@@ -60,8 +60,8 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
 
           let userMintObj = {
             mintedChain: NETWORK_LIST[i],
-            tokenId: Number(mintResult[1]),
-            timestamp: Number(mintResult[2]),
+            tokenId: Number(mintResult[0]),
+            timestamp: Number(mintResult[1]),
             claimedStream: hasClaimedStream,
             tokenSeed: Number(seed),
           };
