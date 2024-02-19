@@ -3,6 +3,7 @@ import { createPublicClient, http } from "viem";
 import { gdaNftContractAbi } from "../abi/gdaNFTContract";
 import { ChainMintInfo } from "../types/chain";
 import { useEffect, useState } from "react";
+import { viemChainLookupById } from "../utils";
 
 export type AllChainMintInfos = {
   [index: number]: ChainMintInfo;
@@ -28,7 +29,9 @@ export const useGetChainMintInfos = () => {
         publicClient = createPublicClient({
           cacheTime: 60_000,
           chain: NETWORK_LIST[i].viemChain!,
-          transport: http(),
+          transport: http(
+            viemChainLookupById(NETWORK_LIST[i].viemChain.id).rpcUrl,
+          ),
         });
 
         const gdaNftContract = {

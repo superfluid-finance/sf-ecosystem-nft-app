@@ -6,12 +6,11 @@ import {
   bsc,
   celo,
   gnosis,
-  mainnet,
   optimism,
+  optimismSepolia,
   polygon,
   scroll,
 } from "viem/chains";
-import { mumbai, avalancheFuji } from "./default";
 import Decimal from "decimal.js";
 
 export const truncateAddress = (address: string) => {
@@ -19,50 +18,56 @@ export const truncateAddress = (address: string) => {
 };
 
 export const viemChainLookupById = (id: number) => {
-  let chain: Chain;
+  let chain: Chain = polygon;
+  let rpcUrl: string = import.meta.env.VITE_VITE_POLYGON_MAINNET_RPC;
 
   switch (id) {
-    case 1:
-      chain = mainnet;
-      break;
     case 100:
       chain = gnosis;
+      rpcUrl = import.meta.env.VITE_XDAI_MAINNET_RPC;
       break;
     case 137:
       chain = polygon;
+      rpcUrl = import.meta.env.VITE_POLYGON_MAINNET_RPC;
       break;
     case 42161:
       chain = arbitrum;
+      rpcUrl = import.meta.env.VITE_ARBITRUM_ONE_RPC;
       break;
     case 43114:
       chain = avalanche;
+      rpcUrl = import.meta.env.VITE_AVALANCHE_RPC;
       break;
     case 10:
       chain = optimism;
+      rpcUrl = import.meta.env.VITE_OPTIMISM_MAINNET_RPC;
+      break;
+    case 11155420:
+      chain = optimismSepolia;
+      rpcUrl = import.meta.env.VITE_OPTIMISM_SEPOLIA_RPC;
       break;
     case 56:
       chain = bsc;
+      rpcUrl = import.meta.env.VITE_BSC_MAINNET_RPC;
       break;
     case 42220:
       chain = celo;
+      rpcUrl = import.meta.env.VITE_CELO_MAINNET_RPC;
       break;
     case 8453:
       chain = base;
+      rpcUrl = import.meta.env.VITE_BASE_MAINNET_RPC;
       break;
     case 534352:
       chain = scroll;
-      break;
-    case 80001:
-      chain = mumbai;
-      break;
-    case 43113:
-      chain = avalancheFuji;
+      rpcUrl = import.meta.env.VITE_SCROLL_MAINNET_RPC;
       break;
     default:
-      chain = mainnet;
+      chain = polygon;
+      rpcUrl = import.meta.env.VITE_VITE_POLYGON_MAINNET_RPC;
   }
 
-  return chain;
+  return { chain, rpcUrl };
 };
 
 export const getDecimalPlacesToRoundTo = (value: Decimal): number => {

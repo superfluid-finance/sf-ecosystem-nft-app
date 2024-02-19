@@ -11,10 +11,10 @@ import {
   celo,
   base,
   scroll,
+  optimismSepolia,
 } from "viem/chains";
 import { Layout } from "./components/layout";
 import { Dashboard } from "./components/views/Dashboard";
-import { mumbai, avalancheFuji } from "./lib/default";
 
 const privyConfig: PrivyClientConfig = {
   loginMethods: ["wallet"],
@@ -29,10 +29,9 @@ const privyConfig: PrivyClientConfig = {
       "wallet_connect",
     ],
   },
-  defaultChain: mumbai,
+  defaultChain: polygon,
   supportedChains: [
-    mumbai,
-    avalancheFuji,
+    optimismSepolia,
     bsc,
     polygon,
     gnosis,

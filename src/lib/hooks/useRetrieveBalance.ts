@@ -14,8 +14,8 @@ export const useRetrieveBalance = () => {
 
         const publicClient = createPublicClient({
           cacheTime: 60_000,
-          chain: viemChainLookupById(Number(chainId))!,
-          transport: http(),
+          chain: viemChainLookupById(Number(chainId)).chain!,
+          transport: http(viemChainLookupById(Number(chainId)).rpcUrl),
         });
 
         let bal: any = await publicClient.getBalance({
