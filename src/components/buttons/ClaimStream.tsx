@@ -11,6 +11,7 @@ import {
 import { LoadingSpinner } from "../common/Loading";
 import { ConnectedWalletContext, SelectedChainContext } from "../layout";
 import { VERSION } from "../../lib/default";
+import { viemChainLookupById } from "../../lib/utils";
 
 export const ClaimStreamButton = () => {
   const wallet = useContext(ConnectedWalletContext);
@@ -43,7 +44,11 @@ export const ClaimStreamButton = () => {
 
       const publicClient = createPublicClient({
         chain: mintInfo?.mintedChain?.viemChain ?? selected?.viemChain,
-        transport: http(),
+        transport: http(
+          mintInfo?.mintedChain?.viemChain
+            ? viemChainLookupById(mintInfo?.mintedChain?.viemChain?.id).rpcUrl
+            : viemChainLookupById(selected?.viemChain?.id).rpcUrl ?? "",
+        ),
       });
 
       let tx = await publicClient.waitForTransactionReceipt({ hash });

@@ -11,6 +11,7 @@ import {
   REJECTED_TRANSACTION_MINT,
 } from "../../lib/dictionary";
 import { VERSION } from "../../lib/default";
+import { viemChainLookupById } from "../../lib/utils";
 
 export const Mint = () => {
   const userBalance = useRetrieveBalance();
@@ -36,7 +37,7 @@ export const Mint = () => {
 
       let publicClient = createPublicClient({
         chain: selected.viemChain,
-        transport: http(),
+        transport: http(viemChainLookupById(selected.viemChain.id).rpcUrl),
       });
 
       let tx = await publicClient.waitForTransactionReceipt({ hash });

@@ -24,7 +24,7 @@ export const useViemWalletClient = ({
       // Create a Viem wallet client from the EIP1193 provider
       const walletClient = await createWalletClient({
         account: wallet?.address as `0x${string}`,
-        chain: viemChainLookupById(Number(currentlyConnectedId))!,
+        chain: viemChainLookupById(Number(currentlyConnectedId)).chain!,
         transport: custom(ethereumProvider),
       });
 

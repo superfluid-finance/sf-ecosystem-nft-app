@@ -8,6 +8,7 @@ import {
   ConnectedWalletContext,
   SelectedChainContext,
 } from "../../components/layout";
+import { viemChainLookupById } from "../utils";
 
 export const useCheckMintStatus = (triggerUpdate?: boolean) => {
   const wallet = useContext(ConnectedWalletContext);
@@ -28,7 +29,9 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
         publicClient = createPublicClient({
           cacheTime: 10_000,
           chain: NETWORK_LIST[i].viemChain!,
-          transport: http(),
+          transport: http(
+            viemChainLookupById(NETWORK_LIST[i].viemChain.id).rpcUrl,
+          ),
         });
 
         const nftContract = getContract({
@@ -88,7 +91,11 @@ export const useCheckMintStatus = (triggerUpdate?: boolean) => {
       let publicClient = createPublicClient({
         cacheTime: 10_000,
         chain: mintStatus?.mintedChain?.viemChain ?? selected.viemChain,
-        transport: http(),
+        transport: http(
+          mintStatus?.mintedChain?.viemChain
+            ? viemChainLookupById(mintStatus?.mintedChain?.viemChain?.id).rpcUrl
+            : viemChainLookupById(selected.viemChain?.id).rpcUrl ?? "",
+        ),
       });
 
       const forwarderContract = getContract({

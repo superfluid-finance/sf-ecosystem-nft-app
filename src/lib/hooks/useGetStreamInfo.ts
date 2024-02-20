@@ -5,6 +5,7 @@ import { superfluidPoolAbi } from "../abi/superfluidPool";
 import { UserMintInfo } from "../types/user";
 import { ConnectedWalletContext } from "../../components/layout";
 import { VERSION } from "../default";
+import { viemChainLookupById } from "../utils";
 
 export const useGetStreamInfo = () => {
   const [streamInfo, setStreamInfo] = useState<StreamInfoType>();
@@ -19,7 +20,9 @@ export const useGetStreamInfo = () => {
     let publicClient = createPublicClient({
       cacheTime: 10_000,
       chain: mintedInfo.mintedChain.viemChain,
-      transport: http(),
+      transport: http(
+        viemChainLookupById(mintedInfo.mintedChain.viemChain.id).rpcUrl,
+      ),
     });
 
     const superfluidPoolContract = getContract({
