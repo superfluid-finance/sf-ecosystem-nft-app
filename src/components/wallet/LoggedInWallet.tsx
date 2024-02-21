@@ -29,13 +29,6 @@ export const LoggedInWallet = () => {
     scale: 5,
   });
 
-  const performSwitchChain = useCallback(
-    async (wallet: any) => {
-      await wallet.switchChain(selected.viemChain.id);
-    },
-    [selected],
-  );
-
   // generates blockie image
   useEffect(() => {
     if (!blockieSet && blockieRefDiv.current) {
@@ -44,15 +37,6 @@ export const LoggedInWallet = () => {
       setBlockieSet(true);
     }
   }, [blockieRefDiv.current]);
-
-  // if selected chain changes,
-  // we switch user to right network first before we
-  // request wallet balance
-  useEffect(() => {
-    if (wallet) {
-      performSwitchChain(wallet);
-    }
-  }, [selected]);
 
   return (
     <div

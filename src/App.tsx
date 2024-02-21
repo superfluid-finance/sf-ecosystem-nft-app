@@ -29,7 +29,6 @@ const privyConfig: PrivyClientConfig = {
       "wallet_connect",
     ],
   },
-  defaultChain: polygon,
   supportedChains: [
     optimismSepolia,
     bsc,

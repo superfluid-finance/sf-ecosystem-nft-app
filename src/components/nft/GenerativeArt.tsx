@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 /** Component that takes a seed, and display the generative art */
 const GenArt = ({
   parentElement = window,
-  seed = new Date().getTime(),
+  seed = 123456,
 }: {
   parentElement?: any;
   seed?: number;
