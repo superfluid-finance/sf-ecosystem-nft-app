@@ -11,7 +11,6 @@ import {
   celo,
   base,
   scroll,
-  optimismSepolia,
 } from "viem/chains";
 import { Layout } from "./components/layout";
 import { Dashboard } from "./components/views/Dashboard";
@@ -29,9 +28,7 @@ const privyConfig: PrivyClientConfig = {
       "wallet_connect",
     ],
   },
-  defaultChain: polygon,
   supportedChains: [
-    optimismSepolia,
     bsc,
     polygon,
     gnosis,

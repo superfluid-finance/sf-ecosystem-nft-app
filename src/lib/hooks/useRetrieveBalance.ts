@@ -1,11 +1,15 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { createPublicClient, formatEther, http } from "viem";
 import { viemChainLookupById } from "../utils";
-import { ConnectedWalletContext } from "../../components/layout";
+import {
+  ConnectedWalletContext,
+  SelectedChainContext,
+} from "../../components/layout";
 
 export const useRetrieveBalance = () => {
   const [userBalance, setUserBalance] = useState<number>(0);
   const wallet = useContext(ConnectedWalletContext);
+  const selected = useContext(SelectedChainContext);
 
   const getBalance = useCallback(
     async (wallet: any) => {
@@ -26,14 +30,14 @@ export const useRetrieveBalance = () => {
         setUserBalance(bal);
       }
     },
-    [wallet],
+    [wallet, selected],
   );
 
   useEffect(() => {
     if (wallet) {
       getBalance(wallet);
     }
-  }, [wallet]);
+  }, [wallet, selected]);
 
   return userBalance;
 };

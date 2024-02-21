@@ -6,7 +6,6 @@ import {
   celo,
   gnosis,
   optimism,
-  optimismSepolia,
   polygon,
   scroll,
 } from "viem/chains";
@@ -18,7 +17,7 @@ import { NFTChain } from "./types/chain";
  * mint status should be reset; without having users to
  * manually clear their browser cache.
  */
-export const VERSION = 3;
+export const VERSION = 4;
 
 /** Default values */
 export const NETWORK_LIST: NFTChain[] = [
@@ -89,20 +88,6 @@ export const NETWORK_LIST: NFTChain[] = [
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
       poolAddress: "0x7576f7A4b691c51FdF1888E73CF829F2cE6d71f3",
       nativeTokenAddress: "0x4ac8bD1bDaE47beeF2D1c6Aa62229509b962Aa0d",
-      superTokenSymbol: `ETHx`,
-    },
-  },
-  {
-    name: "Optimism Sepolia",
-    logo: "./network-icons/optimism.svg",
-    ticker: "ETH",
-    price: 0.01,
-    viemChain: optimismSepolia,
-    gdaInfo: {
-      nftContractAddress: "0x5bfcca8266f7a7122dd89267de25a3749e384cae",
-      gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
-      poolAddress: "0x069265a539DDa4540601b747A8C2759341718fc3",
-      nativeTokenAddress: "0x0043d7c85C8b96a49A72A92C0B48CdC4720437d7",
       superTokenSymbol: `ETHx`,
     },
   },

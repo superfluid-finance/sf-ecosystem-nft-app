@@ -21,7 +21,7 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   };
 
   const NFTPreview = () => {
-    let [seed, setSeed] = useState<number>(0);
+    let [seed, setSeed] = useState<number>(12345);
 
     useEffect(() => {
       if (

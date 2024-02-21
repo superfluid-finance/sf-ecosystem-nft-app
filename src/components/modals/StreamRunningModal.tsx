@@ -21,10 +21,7 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
       <div className="flex flex-row gap-x-2 items-center">
         <img src={USDCx} className="w-5 h-5 sm:w-8 sm:h-8" />
         <div className="font-medium text-[22px] sm:text-[2rem] bigscreen:text-[38px] leading-[1] flex gap-x-2 items-end">
-          <p
-            className="w-[10.8rem] mt-1 sm:w-[16rem] bigscreen:w-[18.9rem]"
-            style={{ fontVariantNumeric: "tabular-nums" }}
-          >
+          <p className="mt-1" style={{ fontVariantNumeric: "tabular-nums" }}>
             <FlowingBalance
               startingBalance={streamInfo?.balance}
               startingBalanceDate={
@@ -65,7 +62,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
             className="absolute top-2/3 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[100%] !h-[100%] object-contain z-[0]"
           />
 
-          <div className="p-12">
+          <div className="p-12 relative z-[1]">
             <img
               className="absolute top-6 right-6 w-6 h-6 cursor-pointer"
               src={XIcon}

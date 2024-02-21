@@ -7,7 +7,6 @@ import {
   celo,
   gnosis,
   optimism,
-  optimismSepolia,
   polygon,
   scroll,
 } from "viem/chains";
@@ -41,10 +40,6 @@ export const viemChainLookupById = (id: number) => {
     case 10:
       chain = optimism;
       rpcUrl = import.meta.env.VITE_OPTIMISM_MAINNET_RPC;
-      break;
-    case 11155420:
-      chain = optimismSepolia;
-      rpcUrl = import.meta.env.VITE_OPTIMISM_SEPOLIA_RPC;
       break;
     case 56:
       chain = bsc;

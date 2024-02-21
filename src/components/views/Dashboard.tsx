@@ -27,9 +27,10 @@ export const MintStatusContext = createContext<{
 
 /** Preview image of the NFT */
 const NFTPreview = () => {
-  let [seed, setSeed] = useState<number>();
+  let [seed, setSeed] = useState<number>(12345);
   const wallet = useContext(ConnectedWalletContext);
   const [element, setElement] = useState<Element>();
+  const userMintInfo = useCheckMintStatus();
 
   useEffect(() => {
     if (
@@ -40,13 +41,11 @@ const NFTPreview = () => {
         // @ts-ignore
         window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
       );
-      setSeed(mintStatus?.tokenSeed ?? null);
-    } else {
-      setSeed(undefined);
+      setSeed(mintStatus?.tokenSeed ? mintStatus?.tokenSeed : null);
     }
 
     setElement(document.querySelector("#gen-art-wrapper")!);
-  }, [wallet]);
+  }, [wallet, userMintInfo]);
 
   return (
     <div
@@ -398,7 +397,16 @@ const MintedAndClaimedContent = () => {
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
         Each Ecosystem Rewards Pass sends a stream back to its minter, see the
-        stream details below.
+        stream details below. You can check your streams at any time on the{" "}
+        <a
+          href="https://app.superfluid.finance"
+          rel="noreferrer"
+          className="cursor-pointer underline text-sf-green"
+          target="_blank"
+        >
+          Superfluid Dashboard
+        </a>
+        .
       </h2>
 
       <div className="flex flex-col gap-y-5">
