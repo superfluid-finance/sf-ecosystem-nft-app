@@ -65,7 +65,7 @@ export const ClaimStreamButton = () => {
         let updatedMintInfo = { ...pastMintInfo, claimedStream: true };
         // update mint info
         localStorage.setItem(
-          `${wallet?.address}_sf`,
+          `${wallet?.address}_sf_${VERSION}`,
           JSON.stringify(updatedMintInfo),
         );
 

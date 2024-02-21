@@ -30,6 +30,7 @@ const NFTPreview = () => {
   let [seed, setSeed] = useState<number>();
   const wallet = useContext(ConnectedWalletContext);
   const [element, setElement] = useState<Element>();
+  const mintInfo = useContext(MintStatusContext);
 
   useEffect(() => {
     if (
@@ -40,13 +41,13 @@ const NFTPreview = () => {
         // @ts-ignore
         window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
       );
-      setSeed(mintStatus?.tokenSeed ?? null);
+      setSeed(mintStatus?.tokenSeed ? mintStatus?.tokenSeed : null);
     } else {
       setSeed(undefined);
     }
 
     setElement(document.querySelector("#gen-art-wrapper")!);
-  }, [wallet]);
+  }, [wallet, mintInfo]);
 
   return (
     <div

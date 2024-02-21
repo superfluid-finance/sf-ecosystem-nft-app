@@ -44,7 +44,7 @@ export const viemChainLookupById = (id: number) => {
       break;
     case 11155420:
       chain = optimismSepolia;
-      rpcUrl = import.meta.env.VITE_OPTIMISM_SEPOLIA_RPC;
+      rpcUrl = "https://sepolia.optimism.io";
       break;
     case 56:
       chain = bsc;
