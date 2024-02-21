@@ -27,10 +27,10 @@ export const MintStatusContext = createContext<{
 
 /** Preview image of the NFT */
 const NFTPreview = () => {
-  let [seed, setSeed] = useState<number>();
+  let [seed, setSeed] = useState<number>(12345);
   const wallet = useContext(ConnectedWalletContext);
   const [element, setElement] = useState<Element>();
-  const mintInfo = useContext(MintStatusContext);
+  const userMintInfo = useCheckMintStatus();
 
   useEffect(() => {
     if (
@@ -42,12 +42,10 @@ const NFTPreview = () => {
         window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
       );
       setSeed(mintStatus?.tokenSeed ? mintStatus?.tokenSeed : null);
-    } else {
-      setSeed(undefined);
     }
 
     setElement(document.querySelector("#gen-art-wrapper")!);
-  }, [wallet, mintInfo]);
+  }, [wallet, userMintInfo]);
 
   return (
     <div
