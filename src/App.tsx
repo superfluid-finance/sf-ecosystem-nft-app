@@ -29,7 +29,6 @@ const privyConfig: PrivyClientConfig = {
       "wallet_connect",
     ],
   },
-  defaultChain: mumbai,
   supportedChains: [
     mumbai,
     avalancheFuji,
