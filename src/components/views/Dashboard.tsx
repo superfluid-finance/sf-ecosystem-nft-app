@@ -397,7 +397,16 @@ const MintedAndClaimedContent = () => {
       </h1>
       <h2 className="text-sm text-darkgray mb-8">
         Each Ecosystem Rewards Pass sends a stream back to its minter, see the
-        stream details below.
+        stream details below. You can check your streams at any time on the{" "}
+        <a
+          href="https://app.superfluid.finance"
+          rel="noreferrer"
+          className="cursor-pointer underline text-sf-green"
+          target="_blank"
+        >
+          Superfluid Dashboard
+        </a>
+        .
       </h2>
 
       <div className="flex flex-col gap-y-5">

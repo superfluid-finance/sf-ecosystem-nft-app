@@ -11,7 +11,6 @@ import {
   celo,
   base,
   scroll,
-  optimismSepolia,
 } from "viem/chains";
 import { Layout } from "./components/layout";
 import { Dashboard } from "./components/views/Dashboard";
@@ -30,7 +29,6 @@ const privyConfig: PrivyClientConfig = {
     ],
   },
   supportedChains: [
-    optimismSepolia,
     bsc,
     polygon,
     gnosis,
