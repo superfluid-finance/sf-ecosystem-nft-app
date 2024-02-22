@@ -1,5 +1,4 @@
 import XIcon from "../../assets/xicon.svg";
-import USDCx from "../../assets/USDCx.svg";
 import { StreamInfoType } from "../../lib/types/stream";
 import FlowingBalance from "../amount/FlowingBalance";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
@@ -20,7 +19,10 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
         Total amount streamed
       </span>
       <div className="flex flex-row gap-x-2 items-center">
-        <img src={USDCx} className="w-5 h-5 sm:w-8 sm:h-8" />
+        <img
+          src={`./token-icons/${streamInfo.tokenSymbol}.png`}
+          className="w-5 h-5 sm:w-8 sm:h-8"
+        />
         <div className="font-medium text-[22px] sm:text-[2rem] bigscreen:text-[38px] leading-[1] flex gap-x-2 items-end">
           <p className="mt-1" style={{ fontVariantNumeric: "tabular-nums" }}>
             <FlowingBalance
