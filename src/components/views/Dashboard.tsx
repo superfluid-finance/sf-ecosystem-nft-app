@@ -18,6 +18,7 @@ import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
 import { UserMintInfo } from "../../lib/types/user";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
 import { GenerativeArt } from "../nft/GenerativeArt";
+import { TwitterShareButton } from "react-share";
 
 export const UserMintInfoContext = createContext<UserMintInfo>(null!);
 export const MintStatusContext = createContext<{
@@ -389,6 +390,8 @@ const ClaimStreamContent = () => {
 
 const MintedAndClaimedContent = () => {
   const streamInfo = useGetStreamInfo();
+  const wallet = useContext(ConnectedWalletContext);
+  const userMintInfo = useCheckMintStatus();
 
   return (
     <>
@@ -399,7 +402,7 @@ const MintedAndClaimedContent = () => {
         Each Ecosystem Rewards Pass sends a stream back to its minter, see the
         stream details below. You can check your streams at any time on the{" "}
         <a
-          href="https://app.superfluid.finance"
+          href={`https://app.superfluid.finance?view=${wallet?.address}`}
           rel="noreferrer"
           className="cursor-pointer underline text-sf-green"
           target="_blank"
@@ -409,12 +412,31 @@ const MintedAndClaimedContent = () => {
         .
       </h2>
 
-      <div className="flex flex-col gap-y-5">
+      <div className="flex flex-col gap-y-2">
         <div className="dropdown-boxshadow p-5 rounded-[0.625rem] font-medium w-full flex flex-col gap-y-2.5">
           {streamInfo && <StreamInfo streamInfo={streamInfo!} />}
         </div>
         <div className="flex flex-col gap-y-2">
           <UserMintInfoBox includesDetailedInfo={true} />
+
+          {streamInfo && (
+            <div className="z-[2] relative cursor-pointer w-full text-center py-2 bg-sf-green active:border-transparent active:outline-none focus:border-transparent focus:outline-none hover:border-transparent hover:outline-none rounded-[0.625rem] font-medium text-white">
+              <TwitterShareButton
+                title={`I minted my @Superfluid_HQ Ecosystem Rewards Pass on ${streamInfo!.chain}.\n\n1 Stream → Unlimited recipients.\nEvery minter gets a fraction of the Biggest stream ever. We're currently at ${(userMintInfo?.tokenId || 0) + 1} recipient${userMintInfo?.tokenId && userMintInfo.tokenId + 1 > 1 ? "s" : ""}.`}
+                url="mint.superfluid.finance"
+              >
+                <span className="flex gap-x-2 items-center">
+                  Share on{" "}
+                  <img
+                    src="/x-logo.svg"
+                    width={10}
+                    height={10}
+                    className="inline-block"
+                  ></img>
+                </span>
+              </TwitterShareButton>
+            </div>
+          )}
           <p className="text-xs text-darkgray">
             If you want to mint another NFT connect different wallet.
           </p>

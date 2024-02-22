@@ -1,5 +1,4 @@
 import XIcon from "../../assets/xicon.svg";
-import USDCx from "../../assets/USDCx.svg";
 import { StreamInfoType } from "../../lib/types/stream";
 import FlowingBalance from "../amount/FlowingBalance";
 import { useGetStreamInfo } from "../../lib/hooks/useGetStreamInfo";
@@ -7,6 +6,7 @@ import { useContext } from "react";
 import { MintStatusContext } from "../views/Dashboard";
 import { TwitterShareButton } from "react-share";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
+import { ConnectedWalletContext } from "../layout";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -19,7 +19,10 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
         Total amount streamed
       </span>
       <div className="flex flex-row gap-x-2 items-center">
-        <img src={USDCx} className="w-5 h-5 sm:w-8 sm:h-8" />
+        <img
+          src={`./token-icons/${streamInfo.tokenSymbol}.png`}
+          className="w-5 h-5 sm:w-8 sm:h-8"
+        />
         <div className="font-medium text-[22px] sm:text-[2rem] bigscreen:text-[38px] leading-[1] flex gap-x-2 items-end">
           <p className="mt-1" style={{ fontVariantNumeric: "tabular-nums" }}>
             <FlowingBalance
@@ -43,6 +46,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   const streamInfo = useGetStreamInfo();
   const { setUpdate } = useContext(MintStatusContext);
   const userMintInfo = useCheckMintStatus();
+  const wallet = useContext(ConnectedWalletContext);
 
   const GreyOverlay = () => {
     return (
@@ -80,7 +84,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                 <p className="text-center text-darkgrey mt-[0.2rem]">
                   You can check your streams at any time on the <br />
                   <a
-                    href="https://app.superfluid.finance"
+                    href={`https://app.superfluid.finance?view=${wallet?.address}`}
                     rel="noreferrer"
                     className="cursor-pointer underline text-sf-green"
                     target="_blank"
