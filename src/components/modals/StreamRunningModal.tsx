@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { MintStatusContext } from "../views/Dashboard";
 import { TwitterShareButton } from "react-share";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
+import { ConnectedWalletContext } from "../layout";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -43,6 +44,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   const streamInfo = useGetStreamInfo();
   const { setUpdate } = useContext(MintStatusContext);
   const userMintInfo = useCheckMintStatus();
+  const wallet = useContext(ConnectedWalletContext);
 
   const GreyOverlay = () => {
     return (
@@ -80,7 +82,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                 <p className="text-center text-darkgrey mt-[0.2rem]">
                   You can check your streams at any time on the <br />
                   <a
-                    href="https://app.superfluid.finance"
+                    href={`https://app.superfluid.finance?view=${wallet?.address}`}
                     rel="noreferrer"
                     className="cursor-pointer underline text-sf-green"
                     target="_blank"
