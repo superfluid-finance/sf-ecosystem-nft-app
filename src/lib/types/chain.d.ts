@@ -8,6 +8,7 @@ type NFTChain = {
   price: number;
   viemChain: Chain;
   gdaInfo?: ChainGdaAddresses;
+  subgraphUrl: string;
 };
 
 /** stores the contract variables such as adddresses

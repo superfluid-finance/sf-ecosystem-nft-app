@@ -10,6 +10,20 @@ import {
   scroll,
 } from "viem/chains";
 import { NFTChain } from "./types/chain";
+import sfMeta from "@superfluid-finance/metadata";
+
+const getMetadata = (chainId: number) => {
+  const metadata = sfMeta.getNetworkByChainId(chainId);
+  if (!metadata) {
+    throw new Error(`No metadata for chainId ${chainId}`);
+  }
+  return metadata;
+};
+
+const getSubgraphUrl = (chainId: number) => {
+  const metadata = getMetadata(chainId);
+  return `https://${metadata.name}.subgraph.x.superfluid.dev/`;
+};
 
 /** Used to differentiate versions between deployments, as
  * we are retrieving data from local store for faster access
@@ -27,6 +41,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "MATIC",
     price: 15.0,
     viemChain: polygon,
+    subgraphUrl: getSubgraphUrl(polygon.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -41,6 +56,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "xDAI",
     price: 10.0,
     viemChain: gnosis,
+    subgraphUrl: getSubgraphUrl(gnosis.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -55,6 +71,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "ETH",
     price: 0.005,
     viemChain: arbitrum,
+    subgraphUrl: getSubgraphUrl(arbitrum.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -69,6 +86,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "AVAX",
     price: 0.3,
     viemChain: avalanche,
+    subgraphUrl: getSubgraphUrl(avalanche.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -83,6 +101,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "ETH",
     price: 0.005,
     viemChain: optimism,
+    subgraphUrl: getSubgraphUrl(optimism.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -97,6 +116,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "BNB",
     price: 0.05,
     viemChain: bsc,
+    subgraphUrl: getSubgraphUrl(bsc.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -111,6 +131,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "CELO",
     price: 15.0,
     viemChain: celo,
+    subgraphUrl: getSubgraphUrl(celo.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -125,6 +146,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "ETH",
     price: 0.005,
     viemChain: base,
+    subgraphUrl: getSubgraphUrl(base.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
@@ -139,6 +161,7 @@ export const NETWORK_LIST: NFTChain[] = [
     ticker: "ETH",
     price: 0.005,
     viemChain: scroll,
+    subgraphUrl: getSubgraphUrl(scroll.id),
     gdaInfo: {
       nftContractAddress: "0xcd4e576ba1B74692dBc158c5F399269Ec4739577",
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",

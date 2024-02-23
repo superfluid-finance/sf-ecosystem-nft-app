@@ -1,0 +1,12 @@
+query GetAmountReceivedFromPool($pool: String, $account: String) {
+  poolMembers(first: 1, where: { pool: $pool, account: $account }) {
+    totalAmountReceivedUntilUpdatedAt
+    updatedAtTimestamp
+    units
+    pool {
+      totalAmountDistributedUntilUpdatedAt
+      totalUnits
+      updatedAtTimestamp
+    }
+  }
+}

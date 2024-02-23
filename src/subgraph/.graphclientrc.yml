@@ -1,0 +1,15 @@
+# .graphclientrc.yml
+sources:
+  - name: protocol
+    handler:
+      graphql:
+        endpoint: "{context.url:https://xdai-mainnet.subgraph.x.superfluid.dev}"
+        retry: 3
+documents:
+  - "./**/*.graphql"
+codegen:
+  scalars:
+    BigInt: string
+    Bytes: string
+    BigDecimal: string
+  maybeValue: T | undefined

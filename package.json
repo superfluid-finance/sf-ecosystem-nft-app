@@ -8,10 +8,12 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "generate": "npx graphclient build --dir ./src/subgraph"
   },
   "dependencies": {
     "@privy-io/wagmi-connector": "^0.1.12",
+    "@superfluid-finance/metadata": "^1.1.28",
     "autoprefixer": "^10.4.17",
     "decimal.js": "^10.4.3",
     "ethers": "^5.7.2",
@@ -25,6 +27,7 @@
     "wagmi": "^1.4.12"
   },
   "devDependencies": {
+    "@graphprotocol/client-cli": "^2.2.22",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -41,8 +44,5 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.6.1"
   }
 }
