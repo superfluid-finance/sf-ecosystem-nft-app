@@ -1,0 +1,15 @@
+# .graphclientrc.yml
+sources:
+  - name: protocol
+    handler:
+      graphql:
+        endpoint: "{context.url:https://avalanche-c.subgraph.x.superfluid.dev/}"
+        retry: 3
+documents:
+  - "./src/subgraph/*.graphql"
+codegen:
+  scalars:
+    BigInt: string
+    Bytes: string
+    BigDecimal: string
+  maybeValue: T | undefined
