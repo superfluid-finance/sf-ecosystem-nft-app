@@ -3,10 +3,10 @@ sources:
   - name: protocol
     handler:
       graphql:
-        endpoint: "{context.url:https://avalanche-c.subgraph.x.superfluid.dev/}"
+        endpoint: "{context.url:https://xdai-mainnet.subgraph.x.superfluid.dev}"
         retry: 3
 documents:
-  - "./src/subgraph/*.graphql"
+  - "./**/*.graphql"
 codegen:
   scalars:
     BigInt: string
