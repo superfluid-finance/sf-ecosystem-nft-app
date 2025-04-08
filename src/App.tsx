@@ -29,14 +29,14 @@ const privyConfig: PrivyClientConfig = {
     ],
   },
   supportedChains: [
-    bsc,
+    base,
     polygon,
     gnosis,
     optimism,
     arbitrum,
     avalanche,
     celo,
-    base,
+    bsc,
     scroll,
   ],
 };
