@@ -2,9 +2,7 @@ import XIcon from "../../assets/xicon.svg";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { MintStatusContext } from "../views/Dashboard";
 import { useContext, useEffect, useState } from "react";
-import { GenerativeArt } from "../nft/GenerativeArt";
-import { ConnectedWalletContext } from "../layout";
-import { VERSION } from "../../lib/default";
+import { NFTPreviewVideo } from "../nft/NFTPreviewVideo";
 
 type ClaimStreamModalProps = {
   setModalOpen: Function;
@@ -12,41 +10,10 @@ type ClaimStreamModalProps = {
 
 export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
   const { setUpdate } = useContext(MintStatusContext);
-  const wallet = useContext(ConnectedWalletContext);
 
   const GreyOverlay = () => {
     return (
       <div className="modal-backdrop w-screen h-screen absolute top-0 left-0 bg-black/50"></div>
-    );
-  };
-
-  const NFTPreview = () => {
-    let [seed, setSeed] = useState<number>(12345);
-
-    useEffect(() => {
-      if (
-        wallet &&
-        window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`)
-      ) {
-        let mintStatus = JSON.parse(
-          // @ts-ignore
-          window.localStorage.getItem(`${wallet?.address}_sf_${VERSION}`),
-        );
-
-        setSeed(mintStatus.tokenSeed);
-      }
-    }, [wallet]);
-
-    return (
-      <div
-        style={{ background: `url(/modal-sf-bg.png)` }}
-        className="mx-auto w-full h-full"
-      >
-        <GenerativeArt
-          parentElement={document.querySelector("#claim-stream-modal")}
-          seed={seed}
-        />
-      </div>
     );
   };
 
@@ -78,7 +45,7 @@ export const ClaimStreamModal = ({ setModalOpen }: ClaimStreamModalProps) => {
             className="flex flex-col gap-y-8 mt-6 !bg-no-repeat !bg-[center_-3rem] min-h-[48vh] justify-between"
             style={{ background: `url(/modal-sf-bg.png)` }}
           >
-            <NFTPreview />
+            <NFTPreviewVideo />
             <ClaimStreamButton />
           </div>
         </div>
