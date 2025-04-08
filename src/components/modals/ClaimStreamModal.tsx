@@ -1,7 +1,7 @@
 import XIcon from "../../assets/xicon.svg";
 import { ClaimStreamButton } from "../buttons/ClaimStream";
 import { MintStatusContext } from "../views/Dashboard";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { NFTPreviewVideo } from "../nft/NFTPreviewVideo";
 
 type ClaimStreamModalProps = {

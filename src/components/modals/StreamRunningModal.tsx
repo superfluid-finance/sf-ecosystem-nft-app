@@ -23,17 +23,17 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
           src={`./token-icons/${streamInfo.tokenSymbol}.png`}
           className="w-5 h-5 sm:w-8 sm:h-8"
         />
-        <div className="font-medium text-[22px] sm:text-[2rem] bigscreen:text-[38px] leading-[1] flex gap-x-2 items-end">
-          <p className="mt-1" style={{ fontVariantNumeric: "tabular-nums" }}>
+        <div className="w-[85%] font-medium leading-[1] flex gap-x-2 items-end">
+          <p className="mt-1 text-[3.5vw] sm:text-[2.5vw] md:text-[2vw] lg:text-[1.5vw]" style={{ fontVariantNumeric: "tabular-nums" }}>
             <FlowingBalance
-              startingBalance={streamInfo?.balance}
+              startingBalance={streamInfo?.totalAmountReceivedByMember}
               startingBalanceDate={
                 new Date(streamInfo?.balanceTimestamp * 1000)
               }
               flowRate={streamInfo?.flowRate}
             />
           </p>
-          <span className="text-base text-sm sm:text-md text-sf-green -mt-4">
+          <span className="text-xs sm:text-sm md:text-base text-sf-green -mt-2">
             {streamInfo.tokenSymbol}
           </span>
         </div>

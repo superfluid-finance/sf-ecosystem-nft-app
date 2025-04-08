@@ -5,6 +5,7 @@ type StreamInfoType = {
   flowRate: bigint;
   balanceTimestamp: number;
   balance: bigint;
+  totalAmountReceivedByMember: bigint;
   tokenSymbol: string;
   chain: string;
 };

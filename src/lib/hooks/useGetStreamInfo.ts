@@ -37,6 +37,10 @@ export const useGetStreamInfo = () => {
       client: publicClient,
     });
 
+    let totalAmountReceivedByMember = await superfluidPoolContract.read.getTotalAmountReceivedByMember([
+      wallet?.address as `0x${string}`,
+    ]);
+
     let flowRate: any = await superfluidPoolContract.read.getMemberFlowRate([
       wallet?.address as `0x${string}`,
     ]);
@@ -48,6 +52,7 @@ export const useGetStreamInfo = () => {
     setStreamInfo({
       flowRate: flowRate as bigint,
       balance: balance as bigint,
+      totalAmountReceivedByMember: totalAmountReceivedByMember as bigint,
       balanceTimestamp: balanceTimestamp,
       tokenSymbol: mintedInfo.mintedChain.gdaInfo?.superTokenSymbol ?? "USDCx",
       chain: mintedInfo.mintedChain.name,
