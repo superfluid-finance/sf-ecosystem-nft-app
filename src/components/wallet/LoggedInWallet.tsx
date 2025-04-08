@@ -2,20 +2,20 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 // @ts-ignore
 import { createIcon } from "../../lib/blockies.js";
-import { usePrivy } from "@privy-io/react-auth";
 import { truncateAddress } from "../../lib/utils.js";
 import { useViemWalletClient } from "../../lib/hooks/useViemWalletClient.js";
 import { ConnectedWalletContext, SelectedChainContext } from "../layout.js";
 import { useRetrieveBalance } from "../../lib/hooks/useRetrieveBalance.js";
 import { DropdownArrow } from "../../assets/dropdown-arrow.js";
 import DisconnectIcon from "../../assets/disconnect.svg";
+import { useDisconnect } from "wagmi";
 
 export const LoggedInWallet = () => {
   const { selected } = useContext(SelectedChainContext);
 
   const blockieRefDiv = useRef(null);
   const [blockieSet, setBlockieSet] = useState<boolean>(false);
-  const { logout } = usePrivy();
+  const { disconnect } = useDisconnect();
   const viemWalletClient = useViemWalletClient({ selectedChain: selected });
   const userBalance = useRetrieveBalance();
   const wallet = useContext(ConnectedWalletContext);
@@ -64,7 +64,7 @@ export const LoggedInWallet = () => {
       {openDropdown && (
         <div
           className="cursor-pointed flex gap-x-1 items-center absolute bottom-[-130%] right-0 rounded-[0.625rem] py-2.5 px-4 bg-white"
-          onClick={() => logout()}
+          onClick={() => disconnect()}
         >
           <img src={DisconnectIcon} className="h-4" />
           <span className="font-medium text-error-red">Disconnect</span>

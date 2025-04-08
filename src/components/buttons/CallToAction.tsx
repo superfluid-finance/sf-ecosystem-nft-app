@@ -1,13 +1,13 @@
-import { usePrivy } from "@privy-io/react-auth";
 import { ConnectWallet } from "./ConnectWallet";
 import { Mint } from "./Mint";
 import { SelectedChainContext } from "../layout";
 import { useContext, useEffect, useState } from "react";
 import { useViemWalletClient } from "../../lib/hooks/useViemWalletClient";
 import { SwitchNetwork } from "./SwitchNetwork";
+import { useAccount } from "wagmi";
 
 export const CallToAction = () => {
-  const { ready, authenticated } = usePrivy();
+  const { isConnected } = useAccount();
   const { selected } = useContext(SelectedChainContext);
 
   const viemWalletClient = useViemWalletClient({ selectedChain: selected });
@@ -26,7 +26,7 @@ export const CallToAction = () => {
     }
   }, [viemWalletClient, selected]);
 
-  return ready && authenticated ? (
+  return isConnected ? (
     correctNetwork ? (
       <Mint />
     ) : (
@@ -36,3 +36,7 @@ export const CallToAction = () => {
     <ConnectWallet />
   );
 };
+
+export default function ConnectButton() {
+  return <appkit-button />
+}
