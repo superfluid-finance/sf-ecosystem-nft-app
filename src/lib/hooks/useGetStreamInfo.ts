@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { StreamInfoType } from "../types/stream";
-import { createPublicClient, erc20Abi, getContract, http } from "viem";
+import { createPublicClient, getContract, http } from "viem";
 import { superfluidPoolAbi } from "../abi/superfluidPool";
 import { UserMintInfo } from "../types/user";
 import { ConnectedWalletContext } from "../../components/layout";
@@ -30,28 +30,18 @@ export const useGetStreamInfo = () => {
       abi: superfluidPoolAbi,
       client: publicClient,
     });
-    const nativeTokenContract = getContract({
-      address: mintedInfo.mintedChain.gdaInfo
-        ?.nativeTokenAddress as `0x${string}`,
-      abi: erc20Abi,
-      client: publicClient,
-    });
-
-    let totalAmountReceivedByMember = await superfluidPoolContract.read.getTotalAmountReceivedByMember([
-      wallet?.address as `0x${string}`,
-    ]);
-
-    let flowRate: any = await superfluidPoolContract.read.getMemberFlowRate([
-      wallet?.address as `0x${string}`,
+    const [totalAmountReceivedByMember, flowRate] = await Promise.all([
+      superfluidPoolContract.read.getTotalAmountReceivedByMember([
+        wallet?.address as `0x${string}`,
+      ]),
+      superfluidPoolContract.read.getMemberFlowRate([
+        wallet?.address as `0x${string}`,
+      ]),
     ]);
     let balanceTimestamp = Number(new Date().getTime()) / 1000;
-    let balance: any = await nativeTokenContract.read.balanceOf([
-      wallet?.address as `0x${string}`,
-    ]);
 
     setStreamInfo({
       flowRate: flowRate as bigint,
-      balance: balance as bigint,
       totalAmountReceivedByMember: totalAmountReceivedByMember as bigint,
       balanceTimestamp: balanceTimestamp,
       tokenSymbol: mintedInfo.mintedChain.gdaInfo?.superTokenSymbol ?? "USDCx",
