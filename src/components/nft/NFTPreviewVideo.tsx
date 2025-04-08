@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { ConnectedWalletContext } from "../layout";
 import { useCheckMintStatus } from "../../lib/hooks/useCheckMintStatus";
-import videoSrc from '../../assets/nft-video.mp4'; // Adjust path as needed
+const videoSrc = 'https://6g4v59ayv7sqyrsj.public.blob.vercel-storage.com/nft-video-UgC4p9p4W1jWPeN0OmfRwPSsrD5JMD.mp4'; // Adjust path as needed
 
 export const NFTPreviewVideo = (): JSX.Element => {
   const wallet = useContext(ConnectedWalletContext);
