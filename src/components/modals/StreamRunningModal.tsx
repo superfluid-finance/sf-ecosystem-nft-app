@@ -14,17 +14,17 @@ type ClaimStreamModalProps = {
 
 export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center w-full">
       <span className="text-xs font-medium text-[#121413]/87">
         Total amount streamed
       </span>
-      <div className="flex flex-row gap-x-2 items-center">
+      <div className="flex flex-row gap-x-2 items-center w-full justify-center mx-3">
         <img
           src={`./token-icons/${streamInfo.tokenSymbol}.png`}
           className="w-5 h-5 sm:w-8 sm:h-8"
         />
-        <div className="w-[85%] font-medium leading-[1] flex gap-x-2 items-end">
-          <p className="mt-1 text-[3.5vw] sm:text-[2.5vw] md:text-[2vw] lg:text-[1.5vw]" style={{ fontVariantNumeric: "tabular-nums" }}>
+        <div className="font-medium text-[20px] sm:text-[1.9rem] bigscreen:text-[35px] leading-[1] flex gap-x-2 items-end">
+          <p className="mt-1" style={{ fontVariantNumeric: "tabular-nums" }}>
             <FlowingBalance
               startingBalance={streamInfo?.totalAmountReceivedByMember}
               startingBalanceDate={
@@ -33,7 +33,7 @@ export const StreamInfo = ({ streamInfo }: { streamInfo: StreamInfoType }) => {
               flowRate={streamInfo?.flowRate}
             />
           </p>
-          <span className="text-xs sm:text-sm md:text-base text-sf-green -mt-2">
+          <span className="text-base text-sm sm:text-md text-sf-green -mt-4 whitespace-nowrap">
             {streamInfo.tokenSymbol}
           </span>
         </div>
@@ -94,7 +94,7 @@ export const StreamRunningModal = ({ setModalOpen }: ClaimStreamModalProps) => {
                   .
                 </p>
               </div>
-              <div className="rounded-[1.25rem] p-5 bg-white w-fit mx-auto z-[1]">
+              <div className="rounded-[1.25rem] p-5 bg-white w-full max-w-[90%] mx-auto z-[1]">
                 <StreamInfo streamInfo={streamInfo!} />
               </div>
               <div
