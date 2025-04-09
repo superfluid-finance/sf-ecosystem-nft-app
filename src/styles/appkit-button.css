@@ -1,0 +1,10 @@
+/* Custom styles for the AppKit button */
+appkit-button {
+  --appkit-color-accent: #00C66F;
+  --appkit-color-accent-hover: #00A55C;
+  --appkit-button-border-radius: 0.5rem;
+  --appkit-button-width: 100%;
+  --appkit-button-height: 38px;
+  display: block;
+  width: 100%;
+} 

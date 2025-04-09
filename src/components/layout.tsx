@@ -1,7 +1,6 @@
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import SuperFluidLogo from "../assets/superfluid-logo.svg";
 import BackgroundImage from "../assets/bg.png";
-import { usePrivy, useWallets, ConnectedWallet } from "@privy-io/react-auth";
 import { LoggedInWallet } from "./wallet/LoggedInWallet";
 import { DEFAULT_SELECTED_CHAIN } from "../lib/default";
 import {
@@ -13,6 +12,8 @@ import {
   AllChainMintInfos,
   useGetChainMintInfos,
 } from "../lib/hooks/useGetChainMintInfos";
+import { useAccount } from 'wagmi'
+import { ConnectedWallet } from "../types/wallet";
 
 export const SelectedChainContext = createContext<SelectedChainContextType>(
   null!,
@@ -34,8 +35,7 @@ const Background = () => {
 };
 
 export const Layout = ({ children }: PropsWithChildren) => {
-  const { ready, authenticated } = usePrivy();
-  const { wallets } = useWallets();
+  const { address, chainId } = useAccount()
   const [selected, setSelected] = useState<NFTChain>(DEFAULT_SELECTED_CHAIN);
   const [connectedWallet, setConnectedWallet] = useState<ConnectedWallet>();
   const [allChainMintedInfo, setAllChainMintedInfo] =
@@ -49,16 +49,16 @@ export const Layout = ({ children }: PropsWithChildren) => {
   }, [chainMintInfos]);
 
   useEffect(() => {
-    if (authenticated && wallets && wallets.length > 0) {
-      const wallet = wallets[0];
+    if (address) {
+      const wallet: ConnectedWallet = { address, chainId };
 
-      if (wallet?.chainId) {
+      if (chainId) {
         setConnectedWallet(wallet);
       }
     } else {
       setConnectedWallet(undefined);
     }
-  }, [wallets, authenticated]);
+  }, [address, chainId]);
 
   return (
     <ConnectedWalletContext.Provider value={connectedWallet}>
@@ -77,7 +77,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
                 className="w-[12rem] md:w-[16.375rem]"
               />
 
-              {ready && authenticated && connectedWallet && (
+              {connectedWallet && (
                 <div className="relative">
                   <LoggedInWallet />
                 </div>

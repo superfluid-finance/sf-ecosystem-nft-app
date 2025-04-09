@@ -14,8 +14,8 @@ export const useRetrieveBalance = () => {
   const getBalance = useCallback(
     async (wallet: any) => {
       if (wallet && wallet?.chainId) {
-        let chainId = wallet?.chainId?.split(":")[1];
-
+        let chainId = wallet?.chainId;
+        
         const publicClient = createPublicClient({
           cacheTime: 60_000,
           chain: viemChainLookupById(Number(chainId)).chain!,

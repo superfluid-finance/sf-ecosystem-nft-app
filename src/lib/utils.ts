@@ -18,7 +18,7 @@ export const truncateAddress = (address: string) => {
 
 export const viemChainLookupById = (id: number) => {
   let chain: Chain = polygon;
-  let rpcUrl: string = import.meta.env.VITE_VITE_POLYGON_MAINNET_RPC;
+  let rpcUrl: string = import.meta.env.VITE_POLYGON_MAINNET_RPC;
 
   switch (id) {
     case 100:
@@ -59,7 +59,7 @@ export const viemChainLookupById = (id: number) => {
       break;
     default:
       chain = polygon;
-      rpcUrl = import.meta.env.VITE_VITE_POLYGON_MAINNET_RPC;
+      rpcUrl = import.meta.env.VITE_POLYGON_MAINNET_RPC;
   }
 
   return { chain, rpcUrl };

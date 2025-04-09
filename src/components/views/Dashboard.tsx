@@ -319,7 +319,7 @@ const ClaimStreamContent = () => {
   // before allowing claiming of stream.
   useEffect(() => {
     if (wallet) {
-      if (Number(wallet.chainId.split(":")[1]) != mintedChain.viemChain.id) {
+      if (Number(wallet.chainId) != mintedChain.viemChain.id) {
         setRequireSwitchNetwork(true);
       } else {
         setRequireSwitchNetwork(false);

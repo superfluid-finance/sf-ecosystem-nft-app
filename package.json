@@ -11,7 +11,9 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@privy-io/wagmi-connector": "^0.1.12",
+    "@reown/appkit": "^1.7.2",
+    "@reown/appkit-adapter-wagmi": "^1.7.2",
+    "@tanstack/react-query": "^5.72.1",
     "autoprefixer": "^10.4.17",
     "decimal.js": "^10.4.3",
     "ethers": "^5.7.2",
@@ -21,8 +23,8 @@
     "react-dom": "^18.2.0",
     "react-share": "^5.1.0",
     "tailwindcss": "^3.4.1",
-    "viem": "^2.5.0",
-    "wagmi": "^1.4.12"
+    "viem": "^2.26.2",
+    "wagmi": "^2.14.16"
   },
   "devDependencies": {
     "@types/react": "^18.3.20",
