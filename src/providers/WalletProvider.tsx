@@ -26,7 +26,7 @@ const metadata = {
   name: 'Superfluid Ecosystem NFT',
   description: 'Superfluid Ecosystem NFT App',
   url: window.location.origin,
-  icons: ['https://superfluid.finance/favicon.ico']
+  icons: ['https://superfluid.org/favicon.svg']
 }
 
 // Create Wagmi Adapter - specify chains directly rather than using an array
@@ -42,9 +42,16 @@ createAppKit({
   networks: [base, polygon, gnosis, optimism, arbitrum, avalanche, celo, bsc, scroll], 
   projectId,
   metadata,
-  features: {
-    analytics: true
-  }
+  features: {  
+    analytics: false,  
+    email: false,  
+    onramp: false,  
+    swaps: false,  
+    socials: false  
+  },
+  privacyPolicyUrl: "https://www.iubenda.com/privacy-policy/34415583/legal",  
+  termsConditionsUrl: "https://www.superfluid.finance/termsofuse"
+  
 })
 
 export function WalletProvider({ children }: PropsWithChildren) {

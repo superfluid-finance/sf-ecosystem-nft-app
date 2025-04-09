@@ -24,7 +24,7 @@ export const useViemWalletClient = ({
       const walletClient = await createWalletClient({
         account: wallet?.address as `0x${string}`,
         chain,
-        transport: http(chain.rpcUrls.default.http[0])
+        transport: http(viemChainLookupById(Number(currentlyConnectedId)).rpcUrl)
       });
 
       // @ts-ignore
