@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { NFTChain } from "../types/chain";
-import { createWalletClient, custom } from "viem";
+import { createWalletClient, http } from "viem";
 import { viemChainLookupById } from "../utils";
 import { ConnectedWalletContext } from "../../components/layout";
 
@@ -17,15 +17,14 @@ export const useViemWalletClient = ({
 
   useEffect(() => {
     const getViemWalletClient = async (wallet: any) => {
-      let currentlyConnectedId = wallet.chainId.split(":")[1];
+      let currentlyConnectedId = wallet.chainId;
       // Get an EIP1193 provider from the user's wallet
-      const ethereumProvider = await wallet?.getEthereumProvider();
-
+      let chain = viemChainLookupById(Number(currentlyConnectedId)).chain!;
       // Create a Viem wallet client from the EIP1193 provider
       const walletClient = await createWalletClient({
         account: wallet?.address as `0x${string}`,
-        chain: viemChainLookupById(Number(currentlyConnectedId)).chain!,
-        transport: custom(ethereumProvider),
+        chain,
+        transport: http(viemChainLookupById(Number(currentlyConnectedId)).rpcUrl)
       });
 
       // @ts-ignore

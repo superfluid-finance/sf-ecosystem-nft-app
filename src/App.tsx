@@ -1,53 +1,16 @@
 import "./App.css";
-import { PrivyProvider } from "@privy-io/react-auth";
-import type { PrivyClientConfig } from "@privy-io/react-auth";
-import {
-  bsc,
-  polygon,
-  gnosis,
-  optimism,
-  arbitrum,
-  avalanche,
-  celo,
-  base,
-  scroll,
-} from "viem/chains";
+import "./styles/appkit-button.css";
+import { WalletProvider } from "./providers/WalletProvider";
 import { Layout } from "./components/layout";
 import { Dashboard } from "./components/views/Dashboard";
 
-const privyConfig: PrivyClientConfig = {
-  loginMethods: ["wallet"],
-  appearance: {
-    theme: "light",
-    showWalletLoginFirst: true,
-    walletList: [
-      "detected_wallets",
-      "metamask",
-      "coinbase_wallet",
-      "rainbow",
-      "wallet_connect",
-    ],
-  },
-  supportedChains: [
-    base,
-    polygon,
-    gnosis,
-    optimism,
-    arbitrum,
-    avalanche,
-    celo,
-    bsc,
-    scroll,
-  ],
-};
-
 function App() {
   return (
-    <PrivyProvider appId={import.meta.env.VITE_PRIVY_KEY} config={privyConfig}>
+    <WalletProvider>
       <Layout>
         <Dashboard />
       </Layout>
-    </PrivyProvider>
+    </WalletProvider>
   );
 }
 

@@ -24,7 +24,7 @@ export const NETWORK_LIST: NFTChain[] = [
   {
     name: "Polygon",
     logo: "./network-icons/polygon.svg",
-    ticker: "MATIC",
+    ticker: "POL",
     price: 15.0,
     viemChain: polygon,
     gdaInfo: {
@@ -32,7 +32,7 @@ export const NETWORK_LIST: NFTChain[] = [
       gdaForwarderV1Address: "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08",
       poolAddress: "0x75215c45088120F375De9C5FE52D41BfcD52CADC",
       nativeTokenAddress: "0x3aD736904E9e65189c3000c7DD2c8AC8bB7cD4e3",
-      superTokenSymbol: `MATICx`,
+      superTokenSymbol: `POLx`,
     },
   },
   {
